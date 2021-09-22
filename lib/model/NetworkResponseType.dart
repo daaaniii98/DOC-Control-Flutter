@@ -1,0 +1,4 @@
+enum NetworkResponseType{
+  OK,
+  ERROR
+}
