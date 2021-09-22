@@ -34,15 +34,18 @@ class CameraDisplayController extends GetxController {
     return uri;
   }
 
-  void cancelTimer(){
+  void cancelTimer() {
     _timer.cancel();
   }
 
   void startTimer(List<String> camList) {
-    _timer = Timer.periodic(Duration(seconds:4), (tim) {
+    _timer = Timer.periodic(Duration(seconds: 2), (tim) {
       print('timer running $timerCount');
-      timerCount+=5;
-      getCameraUrl(camList).then((value) => cameraURL.value = value.toString() );
+      timerCount += 5;
+      getCameraUrl(camList).then((value) {
+        cameraURL.value = "";
+        cameraURL.value = value.toString();
+      });
       update();
     });
   }

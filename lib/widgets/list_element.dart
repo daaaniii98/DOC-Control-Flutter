@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:flutter_get_x_practice/constant/MyConstants.dart';
+import 'package:flutter_get_x_practice/controller/ActionController.dart';
 import 'package:flutter_get_x_practice/model/AllowedAction.dart';
+import 'package:flutter_get_x_practice/model/NetworkResponseType.dart';
 import 'package:flutter_get_x_practice/screens/camera_display_screen.dart';
 import 'package:flutter_get_x_practice/screens/home_category_screen.dart';
 import 'package:flutter_get_x_practice/widgets/tile_button_simple.dart';
@@ -16,6 +18,7 @@ class ListElementWidget extends StatelessWidget {
   final List<AllowedAction>? list;
 
   ListElementWidget(this.title, this.list);
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +57,20 @@ class ListElementWidget extends StatelessWidget {
                       tile: list![index].name,
                     ),
                     // TileButtonWidget(),
-                    TileButtonSimple(performAction: controler,),
+                    new TileButtonSimple( performAction: list![index].action,),
+                      // performAction: () {
+                      //   controller.requestActionApi().then((value) {
+                      //     if(value.status == NetworkResponseType.OK){
+                            // GetBar(message: value.message,);
+                          // }
+                        // });
+                      // },
+                    // ),
                     if (list![index].has_camera)
                       CameraButtonWidget(
                         openCameraFun: () {
-                          Get.toNamed(CameraDisplayScreen.route,arguments: list![index]);
+                          Get.toNamed(CameraDisplayScreen.route,
+                              arguments: list![index]);
                         },
                       )
                   ],

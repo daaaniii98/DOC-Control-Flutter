@@ -15,6 +15,7 @@ class ActionController extends GetxController {
   MyPreference _preference = Get.find<MyPreference>();
 
   Future<ActionResponseModel> requestActionApi(String action) async {
+    loading.value = true;
     final user = await _preference.getUser();
     final queryParameters = {
       ParmsHelper.PARMS_USERNAME: '${user.username}',
@@ -31,6 +32,7 @@ class ActionController extends GetxController {
       final response = await http.get(uri, headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
       });
+      loading.value = false;
       final Map<String, dynamic> data = json.decode(response.body);
       return ActionResponseModel.fromJson(data);
     } catch (error) {
