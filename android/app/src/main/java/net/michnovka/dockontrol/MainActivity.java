@@ -1,4 +1,4 @@
-package com.yorbax.flutter_get_x_practice;
+package net.michnovka.dockontrol;
 
 import io.flutter.embedding.android.FlutterActivity;
 

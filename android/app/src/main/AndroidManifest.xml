@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yorbax.flutter_get_x_practice">
+    package="net.michnovka.dockontrol">
 
    <application
-        android:label="flutter_get_x_practice"
+        android:label="DOCKontrol"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -37,9 +37,17 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_animated_button: ^2.0.0
   progress_state_button: "^1.0.3"
+  sembast: ^3.1.1
+#  flutter_launcher_name: ^0.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_name: "^0.0.1"
+  change_app_package_name: ^1.0.0
+
+flutter_launcher_name:
+  name: "DOCKontrol"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_get_x_practice/binding/HomeBinding.dart';
 import 'package:flutter_get_x_practice/screens/camera_display_screen.dart';
 import 'package:flutter_get_x_practice/screens/home_category_screen.dart';
@@ -14,6 +15,10 @@ void main() async {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
 
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitDown,
+        DeviceOrientation.portraitUp,
+      ]);
       // final prefs = await SharedPreferences.getInstance();
       // runApp(MyApp(prefs));
       HomeBinding().dependencies();

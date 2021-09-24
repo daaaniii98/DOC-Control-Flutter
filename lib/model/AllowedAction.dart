@@ -3,12 +3,13 @@ class AllowedAction {
   final String action;
   final String type;
   final String name;
-  final bool has_camera;
-  final bool allow_widget;
+  final bool hasCamera;
+  final bool allowWidget;
+  final bool allow1minOpen;
   final List<String>? cameras;
 
-  AllowedAction(this.id, this.action, this.type, this.name, this.has_camera,
-      this.allow_widget, {this.cameras});
+  AllowedAction(this.id, this.action, this.type, this.name, this.hasCamera,
+      this.allowWidget,this.allow1minOpen, {this.cameras});
 
   factory AllowedAction.fromJson(Map<String, dynamic> myJson) {
     List<String> cameraList = new List.empty(growable: true);
@@ -22,12 +23,13 @@ class AllowedAction {
 
     }
     return AllowedAction(
-        myJson['id'],
+        myJson['id'].toString(),
         myJson['action'],
         myJson['type'],
         myJson['name'],
         myJson['has_camera'],
         myJson['allow_widget'],
+        myJson['allow_1min_open'],
         cameras: cameraList.isEmpty ? null : cameraList);
   }
 }

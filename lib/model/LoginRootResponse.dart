@@ -1,6 +1,8 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:flutter_get_x_practice/constant/MyConstants.dart';
+
 import 'AllowedAction.dart';
 import 'Config.dart';
 import 'NetworkResponseType.dart';
@@ -30,9 +32,8 @@ class LoginRootResponseModel {
       for (dynamic i in list) {
         allowedList.add(AllowedAction.fromJson(i));
       }
-      print("allowedList_length : ${allowedList.length}");
+      // print("allowedList_length : ${allowedList.length}");
       final myConfig = Config.fromJson(myJson['config']);
-      print('Returing');
       return LoginRootResponseModel(
           status: networkResponse,
           allowed_actions: allowedList,
@@ -47,8 +48,11 @@ class LoginRootResponseModel {
     }
   }
 
-  HashMap<String, List<AllowedAction>>? convertToHashMap() {
-    HashMap<String, List<AllowedAction>> hashMap = new HashMap<String, List<AllowedAction>>();
+  LinkedHashMap <String, List<AllowedAction>>? convertToHashMap() {
+    /*
+    Using linked hash map to preserve the order of the widgets
+     */
+    LinkedHashMap <String, List<AllowedAction>> hashMap = new LinkedHashMap <String, List<AllowedAction>>();
     this.allowed_actions!.forEach((ele) {
       if (hashMap.containsKey(ele.type)) {
 //     then add the element inside the array list

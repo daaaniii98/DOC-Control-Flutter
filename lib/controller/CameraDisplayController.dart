@@ -39,7 +39,7 @@ class CameraDisplayController extends GetxController {
   }
 
   void startTimer(List<String> camList) {
-    _timer = Timer.periodic(Duration(seconds: 2), (tim) {
+    _timer = Timer.periodic(Duration(seconds: 4), (tim) {
       print('timer running $timerCount');
       timerCount += 5;
       getCameraUrl(camList).then((value) {
