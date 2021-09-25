@@ -6,6 +6,8 @@ abstract class MyConstants {
   static const APP_NAME = "DOC Control";
   static const CAR_ENTER = "carenter";
   static const CAR_EXIT = "carexit";
+  static const SINGLE_OPEN = "SINGLE OPEN";
+  static const OPEN_ONE_MIN = "OPEN FOR 1 MIN";
 
   // Color Constants
   static const BLUE_ARTIC_CAM_COLOR = Color.fromRGBO(140, 196, 255, 1.0);

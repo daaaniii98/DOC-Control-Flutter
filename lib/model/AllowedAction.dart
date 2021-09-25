@@ -1,6 +1,6 @@
 class AllowedAction {
   final String id;
-  final String action;
+  String action;
   final String type;
   final String name;
   final bool hasCamera;

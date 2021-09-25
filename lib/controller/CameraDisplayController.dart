@@ -30,23 +30,31 @@ class CameraDisplayController extends GetxController {
 
     final uri = Helper.parseGetUrl(
         fileParms: "/camera.php", queryParameters: queryParameters);
-    print('Final_URI ${uri}');
+    print('Final_URI_CAM ${uri}');
     return uri;
   }
 
   void cancelTimer() {
-    _timer.cancel();
+    // _timer.cancel();
   }
 
+
   void startTimer(List<String> camList) {
-    _timer = Timer.periodic(Duration(seconds: 4), (tim) {
-      print('timer running $timerCount');
-      timerCount += 5;
-      getCameraUrl(camList).then((value) {
-        cameraURL.value = "";
-        cameraURL.value = value.toString();
-      });
+    getCameraUrl(camList).then((value) {
+      cameraURL.value = "";
+      cameraURL.value = value.toString();
       update();
     });
+
+
+    // _timer = Timer.periodic(Duration(seconds: 4), (tim) {
+    //   print('timer running $timerCount');
+    //   timerCount += 5;
+    //   getCameraUrl(camList).then((value) {
+    //     cameraURL.value = "";
+    //     cameraURL.value = value.toString();
+    //   });
+    //   update();
+    // });
   }
 }

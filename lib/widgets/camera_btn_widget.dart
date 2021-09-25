@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_get_x_practice/constant/MyConstants.dart';
-import 'package:flutter_get_x_practice/controller/ActionController.dart';
 import 'package:flutter_get_x_practice/model/AllowedAction.dart';
-import 'package:flutter_get_x_practice/model/NetworkResponseType.dart';
 import 'package:flutter_get_x_practice/screens/camera_display_screen.dart';
 import 'package:flutter_get_x_practice/widgets/camera_icon_button.dart';
 import 'package:flutter_get_x_practice/widgets/text_widget.dart';
