@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_get_x_practice/model/AllowedAction.dart';
+import 'package:flutter_get_x_practice/widgets/animate/animate_button_widget.dart';
 import 'package:flutter_get_x_practice/widgets/camera_btn_widget.dart';
 import 'package:flutter_get_x_practice/widgets/text_widget.dart';
 
@@ -19,7 +20,13 @@ class ListElementWidget extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (context, index) {
-              return CameraButtonWidget(allowedAction: list![index]);
+            return AnimateButtonWidget(
+                list![index],
+                CameraButtonWidget(
+                  allowedAction: list![index],
+                )
+            );
+            // return CameraButtonWidget(allowedAction: list![index]);
           },
           itemCount: list?.length,
         ),

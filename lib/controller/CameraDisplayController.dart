@@ -28,7 +28,7 @@ class CameraDisplayController extends GetxController {
       queryParameters.putIfAbsent(camPar, () => camera[i]);
     }
 
-    final uri = Helper.parseGetUrl(
+    final uri = Helper.parseGetUrl(url: ParmsHelper.URL_BASE,
         fileParms: "/camera.php", queryParameters: queryParameters);
     print('Final_URI_CAM ${uri}');
     return uri;
@@ -41,7 +41,8 @@ class CameraDisplayController extends GetxController {
 
   void startTimer(List<String> camList) {
     getCameraUrl(camList).then((value) {
-      cameraURL.value = "";
+      // cameraURL.value = "";
+
       cameraURL.value = value.toString();
       update();
     });

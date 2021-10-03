@@ -19,10 +19,8 @@ class CameraActionButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     controller = Get.find<ActionController>(tag: allowedAction.action);
-
     return Obx(
       () => InkWell(
-
           onTap: () {
             controller.requestActionApi(allowedAction.action).then(
               (value) {

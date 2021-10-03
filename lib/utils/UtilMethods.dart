@@ -7,7 +7,7 @@ abstract class Helper {
   }
 
   static Uri parseGetUrl(
-      {String url = ParmsHelper.URL_BASE,String fileParms = "/api.php", dynamic queryParameters}) {
+      {required String url ,String fileParms = "/api.php", dynamic queryParameters}) {
     return Uri.https(url, fileParms, queryParameters);
   }
 }

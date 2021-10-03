@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter_get_x_practice/db/MyPreference.dart';
 import 'package:flutter_get_x_practice/helper/ParmsHelper.dart';
 import 'package:flutter_get_x_practice/model/ActionResponseModel.dart';
@@ -24,21 +23,26 @@ class ActionController extends GetxController {
     };
 
     final uri = Helper.parseGetUrl(
-        fileParms: "/camera.php", queryParameters: queryParameters);
+        url: ParmsHelper.URL_BASE,
+        fileParms: "/camera.php",
+        queryParameters: queryParameters);
     print('Final_CAMERA_URI ${uri}');
     try {
-      final uri = Helper.parseGetUrl(queryParameters: queryParameters);
+      final uri = Helper.parseGetUrl(
+          url: ParmsHelper.URL_BASE, queryParameters: queryParameters);
       print("Requesting ${uri.toString()}");
-      final response = await http.get(uri, headers: {
-        HttpHeaders.contentTypeHeader: 'application/json',
-      });
+      final response = await http.get(
+        uri,
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+        },
+      );
       loading.value = false;
       final Map<String, dynamic> data = json.decode(response.body);
       return ActionResponseModel.fromJson(data);
     } catch (error) {
       return new ActionResponseModel(
-          NetworkResponseType.ERROR,
-          error.toString());
+          NetworkResponseType.ERROR, error.toString());
     }
   }
 }

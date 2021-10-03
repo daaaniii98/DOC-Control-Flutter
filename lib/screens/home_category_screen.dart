@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_get_x_practice/constant/MyConstants.dart';
 import 'package:flutter_get_x_practice/controller/WidgetScreenController.dart';
 import 'package:flutter_get_x_practice/screens/login_screen.dart';
+import 'package:flutter_get_x_practice/widgets/animate/animate_button_widget.dart';
 import 'package:flutter_get_x_practice/widgets/camera_action_button.dart';
 import 'package:flutter_get_x_practice/widgets/error_widget.dart';
 import 'package:flutter_get_x_practice/widgets/list_element.dart';
@@ -64,32 +65,31 @@ class HomeCategoryScreen extends StatelessWidget {
                           final key = hashList.keys.elementAt(index);
                           print('KEYY : ${key}');
                           if (key == MyConstants.CAR_ENTER) {
-                            return CameraActionButtonWidget(
-                              childWidget: SimpleTextButton(
+                            return AnimateButtonWidget(
+                              hashList[MyConstants.CAR_ENTER]![0],
+                              SimpleTextButton(
                                 fillColor: MyConstants.BLUE_CAM_COLOR,
-                                textWidget: TextWidget(
+                                childWidget: TextWidget(
                                   displayText:
                                       hashList[MyConstants.CAR_ENTER]![0].name,
                                   size: TEXT_SIZE.VERY_SMALL,
                                   textColor: Colors.white,
                                 ),
-                              ),
-                              allowedAction:
-                                  hashList[MyConstants.CAR_ENTER]![0],
+                              ),splashColor: Colors.black
                             );
                           } else if (key == MyConstants.CAR_EXIT) {
-                            return CameraActionButtonWidget(
-                              childWidget: SimpleTextButton(
+                            return AnimateButtonWidget(
+                              hashList[MyConstants.CAR_EXIT]![0],
+                              SimpleTextButton(
                                 fillColor: MyConstants.RED_CAM_COLOR,
-                                textWidget: TextWidget(
+                                childWidget: TextWidget(
                                   displayText:
                                       hashList[MyConstants.CAR_EXIT]![0].name,
                                   size: TEXT_SIZE.VERY_SMALL,
                                   textColor: Colors.white,
                                 ),
-                              ),
-                              allowedAction: hashList[MyConstants.CAR_EXIT]![0],
-                            );
+                              )
+                            ,splashColor: Colors.black,);
                           } else {
                             return ListElementWidget(key, hashList[key]);
                           }

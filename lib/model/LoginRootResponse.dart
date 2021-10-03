@@ -65,8 +65,6 @@ class LoginRootResponseModel {
     });
     return hashMap;
   }
-
-
 }
 /* STATUS :
 -error

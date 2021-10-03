@@ -7,11 +7,13 @@ import 'package:flutter/painting.dart';
 
 class ForcePicRefresh extends StatefulWidget {
   final String url;
+
   /*
   Count-down to display cam-footage (Hack)
   Current count is >=3
    */
   int camPerceptionCount = 0;
+
   /*
 Flag to check if the widget has to display one camera footage or not
    */
@@ -28,18 +30,22 @@ class _ForcePicRefresh extends State<ForcePicRefresh> {
   var _isLive = false;
   var _isPause = false;
   Uint8List? oldImgBytes;
+  int _uniqueId = 1;
 
   @override
   void initState() {
-    clearCache();
+    // clearCache();
     _isLive = true;
     _updateImgWidget();
-    // _pic = Image.network(widget.url);
+    _pic = Image.network(widget.url);
     super.initState();
   }
 
   Widget _getDisplay(dynamic data, Widget child) {
+    _uniqueId++;
+    print('Unique_id ${_uniqueId}');
     return Stack(
+      key: ValueKey<int>(_uniqueId),
       children: [
         Positioned.fill(child: child),
         if (_isPause)
@@ -62,7 +68,7 @@ class _ForcePicRefresh extends State<ForcePicRefresh> {
   Future<void> dispose() async {
     _isLive = false;
     print('DISPOSE');
-    clearCache();
+    // clearCache();
     super.dispose();
   }
 
@@ -105,21 +111,25 @@ class _ForcePicRefresh extends State<ForcePicRefresh> {
     return SizedBox(
       height: getHeight(),
       child: InkWell(
-        child: widget.camPerceptionCount >= 3 ? _pic : Center(child: CircularProgressIndicator.adaptive()),
+        child: widget.camPerceptionCount >= 3
+            ? AnimatedSwitcher(duration: Duration(seconds: 2), child: _pic,switchInCurve: Curves.ease,switchOutCurve:  Curves.ease,)
+            : Center(child: CircularProgressIndicator.adaptive()),
         onTap: () {
-          if(widget.camPerceptionCount >= 3) {
+          if (widget.camPerceptionCount >= 3) {
             _isPause = !_isPause;
-            print('Is_pause $_isPause');
+            // print('Is_pause $_isPause');
             // updateWidgetState(null);
-            setState(() {
-              _pic = _getDisplay(
-                oldImgBytes,
-                Image.memory(
-                  oldImgBytes!,
-                  // fit: BoxFit.fill,
-                ),
-              );
-            });
+            if (mounted) {
+              setState(() {
+                _pic = _getDisplay(
+                  oldImgBytes,
+                  Image.memory(
+                    oldImgBytes!,
+                    // fit: BoxFit.fill,
+                  ),
+                );
+              });
+            }
           }
           // _updateImgWidget();
         },
@@ -136,13 +146,9 @@ class _ForcePicRefresh extends State<ForcePicRefresh> {
           // fit: BoxFit.fill,
         ),
       );
-      setState(() {
-        // _pic = Image.memory(bytes);
-        // if (bytes == null) {
-        //   _pic = _getDisplay(oldImgBytes, Image.memory(oldImgBytes!));
-        // } else {
-        // }
-      });
+      if(mounted) {
+        setState(() {});
+      }
     }
   }
 
@@ -150,5 +156,4 @@ class _ForcePicRefresh extends State<ForcePicRefresh> {
     var height = MediaQuery.of(context).size.height;
     return widget.isSingleImg ? height * 0.25 : height * 0.5;
   }
-
 }

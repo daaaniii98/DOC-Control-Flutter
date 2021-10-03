@@ -17,7 +17,7 @@ class LoginHelper {
         ParmsHelper.PARMS_ACTION: '$action',
       };
       // final uri = Uri.https(ParmsHelper.URL_BASE, "/api.php", queryParameters);
-      final uri = Helper.parseGetUrl(queryParameters: queryParameters);
+      final uri = Helper.parseGetUrl(url: ParmsHelper.URL_BASE,queryParameters: queryParameters);
       print("Requesting ${uri.toString()}");
       final response = await http.get(uri, headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
