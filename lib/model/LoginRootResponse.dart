@@ -13,7 +13,6 @@ class LoginRootResponseModel {
   final Config? config;
   final String? message;
 
-
   LoginRootResponseModel(
       {this.status = NetworkResponseType.ERROR,
       this.allowed_actions,
@@ -48,18 +47,27 @@ class LoginRootResponseModel {
     }
   }
 
-  LinkedHashMap <String, List<AllowedAction>>? convertToHashMap() {
+  LinkedHashMap<String, List<AllowedAction>>? convertToHashMap() {
     /*
     Using linked hash map to preserve the order of the widgets
      */
-    LinkedHashMap <String, List<AllowedAction>> hashMap = new LinkedHashMap <String, List<AllowedAction>>();
+    LinkedHashMap<String, List<AllowedAction>> hashMap =
+        new LinkedHashMap<String, List<AllowedAction>>();
     this.allowed_actions!.forEach((ele) {
+      // final ele = AllowedAction(el.id, el.action, el.type, el.name, el.hasCamera, el.allowWidget, el.allow1minOpen,cameras: el.cameras);
+      // final ele = AllowedAction.fromInstance(el);
+      // print('FOREACH ${ele.id} : ${ele.hasCamera}');
       if (hashMap.containsKey(ele.type)) {
 //     then add the element inside the array list
+//         print('ele.type :: ${ele.type}');
         List<AllowedAction>? list = hashMap[ele.type];
+        // print('list!.add ::}');
+        // ele.printObject();
         list!.add(ele);
         hashMap.update(ele.type, (newVal) => list);
       } else {
+        // print('print_ifAbsent ::');
+        // ele.printObject();
         hashMap.putIfAbsent(ele.type, () => [ele].toList());
       }
     });

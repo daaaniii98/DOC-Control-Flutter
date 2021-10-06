@@ -66,7 +66,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     //TODO For test purposes
     // loginController.readRecords();
-    final channel = CommunicationChannel();
 
     // loginController.deleteRecords();
     return Scaffold(

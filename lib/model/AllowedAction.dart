@@ -42,14 +42,16 @@ class AllowedAction {
         cameraList.add(value);
       });
     }
+    // print('CONVERTING_RECORDS : ${myJson}');
+    // print('myJson[\'has_camera\'] :: ${myJson['has_camera']} NOW COND :: ${myJson['has_camera'] == 'true'} ');
     return AllowedAction(
         myJson['id'].toString(),
         myJson['action'],
         myJson['type'],
         myJson['name'],
-        myJson['has_camera'],
-        myJson['allow_widget'],
-        myJson['allow_1min_open'],
+        myJson['hasCamera'],
+        myJson['allowWidget'],
+        myJson['allow1minOpen'],
         cameras: cameraList.isEmpty ? null : cameraList);
   }
 
@@ -58,6 +60,7 @@ class AllowedAction {
       'id': this.id.toString(),
       'action': this.action,
       'type': this.type,
+      'name': this.name,
       'hasCamera': this.hasCamera,
       'allowWidget': this.allowWidget,
       'allow1minOpen': this.allow1minOpen,
@@ -72,5 +75,11 @@ class AllowedAction {
       myMap.putIfAbsent('cameras', () => camMap);
     }
     return myMap;
+  }
+
+  void printObject(){
+    print('id : ${this.id} , action : ${this.action} , type : ${this.type} , name : ${this.name}'
+        ', hasCamera : ${this.hasCamera} , allowWidget : ${this.allowWidget} , '
+        'allow1Min : ${this.allow1minOpen} , camera : ${this.cameras}');
   }
 }

@@ -20,8 +20,7 @@ class WidgetDatabase extends GetxController {
 
   Future<void> initDatabase() async {
     _dbFactory = databaseFactoryIo;
-    final directory = await getApplicationDocumentsDirectory();
-    _db = await _dbFactory.openDatabase(directory.path + _dbPath);
+   ;
   }
 
   Future<void> storeWidgets(List<AllowedAction> allowedActions) async {
@@ -51,6 +50,7 @@ class WidgetDatabase extends GetxController {
   }
 
   Future<List<AllowedAction>> readRecords() async {
+    await _openOrCreateDatabase();
     List<AllowedAction> allowedActions = List.empty(growable: true);
     var value = await _anotherStore.findKeys(_db);
     for(final element in value){
@@ -61,6 +61,11 @@ class WidgetDatabase extends GetxController {
     }
 
     return allowedActions;
+  }
+
+  Future<void> _openOrCreateDatabase()async {
+    final directory = await getApplicationDocumentsDirectory();
+    _db = await _dbFactory.openDatabase(directory.path + _dbPath);
   }
 
   void deleteRecords() {

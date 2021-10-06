@@ -15,10 +15,10 @@ class LoginFormController extends GetxController {
   var openConnection = true;
   MyPreference _preference = Get.find<MyPreference>();
   WidgetDatabase _widgetDatabase = Get.find<WidgetDatabase>();
+
   // PermissionController _permissionController = Get.find<PermissionController>();
   StreamController<LoginRootResponseModel> loginObserver =
       StreamController<LoginRootResponseModel>.broadcast();
-
 
   @override
   void onInit() {
@@ -39,23 +39,24 @@ class LoginFormController extends GetxController {
     LoginHelper.loginUser(username, password).then((value) {
       loading.value = false;
       if (value.status == NetworkResponseType.OK) {
+        _widgetDatabase.deleteRecords();
         print('Inserting Data in database________');
         _widgetDatabase
             .storeWidgets(value.allowed_actions!)
-            .then((value) => print('INSERTTION_SUCCESS'));
+            .then((value) => print('INSERTTION_SUCCESS'))
+            .then((value2) => loginObserver.add(value));
       }
-      loginObserver.add(value);
     });
   }
 
-  void readRecords(){
+  void readRecords() {
     _widgetDatabase.readRecords().then((value) {
+      value.forEach((element) {element.printObject();});
       print('valueSize ${value.length}');
     });
   }
 
-  void deleteRecords(){
+  void deleteRecords() {
     _widgetDatabase.deleteRecords();
   }
-
 }

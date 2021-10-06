@@ -58,13 +58,18 @@ class HomeCategoryScreen extends StatelessWidget {
                       retryFunction: () => controller.setWidgetsResponse(null),
                     );
                   } else {
+                    print('printing_before_convert');
+                    controller.dataObserver.value.allowed_actions!.forEach((element) { element.printObject();});
                     final hashList =
                         controller.dataObserver.value.convertToHashMap()!;
+                    print('Printing_hash : ${hashList}');
                     return ListView.builder(
                         itemBuilder: (context, index) {
                           final key = hashList.keys.elementAt(index);
                           print('KEYY : ${key}');
                           if (key == MyConstants.CAR_ENTER) {
+                            hashList[MyConstants.CAR_ENTER]![0].printObject();
+                            // print('carEnter :: ${}');
                             return AnimateButtonWidget(
                               hashList[MyConstants.CAR_ENTER]![0],
                               SimpleTextButton(
@@ -78,6 +83,8 @@ class HomeCategoryScreen extends StatelessWidget {
                               ),splashColor: Colors.black
                             );
                           } else if (key == MyConstants.CAR_EXIT) {
+                            print('carExit :: ');
+                            hashList[MyConstants.CAR_EXIT]![0].printObject();
                             return AnimateButtonWidget(
                               hashList[MyConstants.CAR_EXIT]![0],
                               SimpleTextButton(
