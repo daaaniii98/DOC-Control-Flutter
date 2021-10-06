@@ -21,7 +21,7 @@ class CommunicationChannel{
         });
         myMap["cameras"] = strList;
         // jsonArr.add(json.encode(myMap));
-        jsonArr.add(myMap);
+        jsonArr.add(myMap);   
       });
       final jsonObject = jsonEncode({
         "username":username.toString(),

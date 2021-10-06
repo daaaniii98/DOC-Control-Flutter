@@ -2,7 +2,32 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="100dp"
+    android:layout_height="50dp">
+
+    <Button
+        android:id="@+id/btn_action_name"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:text="@string/open_car"
+        android:background="@drawable/bg_plain"
+        android:layout_margin="5dp"/>
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/yellow_color"
+        android:padding="10dp"
+        android:id="@+id/progress"
+        android:visibility="gone"
+        android:indeterminateTint="@android:color/black"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_close"
+        android:visibility="gone"
+        android:background="@color/red_color"
+        android:padding="10dp"/>
 
 </LinearLayout>
