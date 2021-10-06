@@ -21,7 +21,7 @@ class CommunicationChannel{
         });
         myMap["cameras"] = strList;
         // jsonArr.add(json.encode(myMap));
-        jsonArr.add(myMap);   
+        jsonArr.add(myMap);
       });
       final jsonObject = jsonEncode({
         "username":username.toString(),
@@ -29,8 +29,16 @@ class CommunicationChannel{
         "data":jsonArr
       });
 
-      print('jsonArrjsonArr ${jsonObject.toString()}');
+      // print('jsonArrjsonArr ${jsonObject.toString()}');
       final response = await _widgetChannel.invokeMethod('widget_data',jsonObject.toString());
+      print('Sending message FLUTTER :: $response');
+    } on PlatformException catch (e) {
+      print("Failed to get battery level: '${e.message}'.");
+    }
+  }
+  Future<void> logoutSignal() async {
+    try {
+      final response = await _widgetChannel.invokeMethod('logout');
       print('Sending message FLUTTER :: $response');
     } on PlatformException catch (e) {
       print("Failed to get battery level: '${e.message}'.");

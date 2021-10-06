@@ -28,6 +28,7 @@ public class DatabaseHelper {
     }
 
     public void deleteData() {
-        Paper.book().delete(BOOK_NAME);
+//        Paper.book().write(KEY_RESPONSE,null);
+        Paper.book(BOOK_NAME).destroy();
     }
 }

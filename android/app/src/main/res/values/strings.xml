@@ -2,4 +2,5 @@
 <resources>
     <string name="action_widget_description">Action button for triggering action</string>
     <string name="open_car">Open Car</string>
+    <string name="you_need_to_login">You need to login</string>
 </resources>

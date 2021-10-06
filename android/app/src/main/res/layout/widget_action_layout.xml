@@ -2,14 +2,23 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="100dp"
+    android:background="@drawable/bg_plain"
+    android:layout_width="match_parent"
     android:layout_height="50dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/you_need_to_login"
+        android:layout_gravity="center"
+        android:id="@+id/tx_login"
+        android:gravity="center"/>
     <Button
         android:id="@+id/btn_action_name"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:text="@string/open_car"
+        android:visibility="gone"
         android:background="@drawable/bg_plain"
         android:layout_margin="5dp"/>
 
@@ -25,8 +34,18 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:src="@drawable/ic_check"
+        android:visibility="gone"
+        android:id="@+id/img_status_success"
+        android:background="@color/green_color"
+        android:padding="10dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:src="@drawable/ic_close"
         android:visibility="gone"
+        android:id="@+id/img_status_failure"
         android:background="@color/red_color"
         android:padding="10dp"/>
 

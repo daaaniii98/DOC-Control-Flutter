@@ -1,5 +1,7 @@
 package net.michnovka.dockontrol;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.Log;
@@ -40,7 +42,7 @@ public class MainActivity extends FlutterActivity implements PluginRegistry.Plug
         super.configureFlutterEngine(flutterEngine);
         new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL)
                 .setMethodCallHandler((call, result) -> {
-                    if(call.method.equals("widget_data")) {
+                    if (call.method.equals("widget_data")) {
                         Gson gson = new Gson();
                         com.google.gson.stream.JsonReader reader = new com.google.gson.stream.JsonReader(new StringReader(call.arguments.toString()));
                         reader.setLenient(true);
@@ -51,8 +53,14 @@ public class MainActivity extends FlutterActivity implements PluginRegistry.Plug
                         Log.e(TAG, "configureFlutterEngine: " + call.method);
                         Log.e(TAG, "configureFlutterEngine: sending REsponse ");
                         result.success("YESS GOT IT");
+                    } else if (call.method.equals("logout")) {
+                        DatabaseHelper.getInstance().deleteData();
+                        result.success("YESS GOT IT");
                     }
-        });
+                    AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+                    ComponentName thisWidget = new ComponentName(this, ActionWidgetProvider.class);
+                    ActionWidgetProvider.updateWidget(this,appWidgetManager,appWidgetManager.getAppWidgetIds(thisWidget));
+                });
     }
 
     @Override

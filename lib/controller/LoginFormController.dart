@@ -12,6 +12,10 @@ import 'PermissionController.dart';
 
 class LoginFormController extends GetxController {
   RxBool loading = false.obs;
+  //For login
+  // RxBool loadingLoginCheck = true.obs;
+  // RxBool isLogin = false.obs;
+
   var openConnection = true;
   MyPreference _preference = Get.find<MyPreference>();
   WidgetDatabase _widgetDatabase = Get.find<WidgetDatabase>();
@@ -28,6 +32,7 @@ class LoginFormController extends GetxController {
 
   Future<bool> isUserLoggedIn() async {
     return _preference.isLoggedIn();
+    // isLogin.value = await _preference.isLoggedIn();
   }
 
   void saveUserDetails(String username, String password) {

@@ -11,6 +11,7 @@ import 'package:flutter_get_x_practice/model/NetworkResponseType.dart';
 import 'package:get/get.dart';
 
 class WidgetScreenController extends GetxController {
+  final channel = CommunicationChannel();
   MyPreference _preference = Get.find<MyPreference>();
   Rx<LoginRootResponseModel> dataObserver =
       Rx<LoginRootResponseModel>(LoginRootResponseModel());
@@ -21,7 +22,6 @@ class WidgetScreenController extends GetxController {
     loading.value = true;
     final records = await _widgetDatabase.readRecords();
     print('records_get ${records}');
-    final channel = CommunicationChannel();
     await channel.sendWidgetData(records,username,password);
     List<AllowedAction> allowedActions = List.empty(growable: true);
 
@@ -45,7 +45,10 @@ class WidgetScreenController extends GetxController {
   Future<void> setWidgetsResponse(LoginRootResponseModel? resp) async {
     if (resp != null) {
       // print('Response wasnt null');
+      final user = await _preference.getUser();
+      await channel.sendWidgetData(resp.allowed_actions!,user.username, user.password);
       dataObserver.value = resp;
+
     } else {
       // print('Response was null calling API now');
       final user = await _preference.getUser();
@@ -54,6 +57,7 @@ class WidgetScreenController extends GetxController {
   }
 
   void logoutUser() {
+    CommunicationChannel().logoutSignal();
     _preference.logoutUser();
   }
 }

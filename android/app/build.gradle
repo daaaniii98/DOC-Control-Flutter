@@ -68,6 +68,7 @@ dependencies {
     implementation 'io.github.pilgr:paperdb:2.7.1'
 
     implementation 'com.android.support:multidex:1.0.3'
+
 }
 flutter {
     source '../..'

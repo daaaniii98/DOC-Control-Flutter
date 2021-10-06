@@ -20,10 +20,10 @@ class WidgetDatabase extends GetxController {
 
   Future<void> initDatabase() async {
     _dbFactory = databaseFactoryIo;
-   ;
   }
 
   Future<void> storeWidgets(List<AllowedAction> allowedActions) async {
+    await _openOrCreateDatabase();
     print('Start');
     // _dbFactory.openDatabase(_dbPath,mode: DatabaseMode.create).then((value) async {
     //
@@ -35,7 +35,7 @@ class WidgetDatabase extends GetxController {
 
       var record = await _anotherStore.record(key!).getSnapshot(_db);
       // print('inserted key ${key}');
-      print('GETT RECPRD key ${record}');
+      // print('GETT RECPRD key ${record}');
     });
 
     // var listOfActions = await store.record(_keyWidgets).put(_db, allowedActions)
@@ -54,7 +54,7 @@ class WidgetDatabase extends GetxController {
     List<AllowedAction> allowedActions = List.empty(growable: true);
     var value = await _anotherStore.findKeys(_db);
     for(final element in value){
-      print('key is ${element}');
+      // print('key is ${element}');
       var finalVal = await _anotherStore.record(element).get(_db);
       allowedActions.add(AllowedAction.fromMap(finalVal!));
       // print(allowedActions.length);
@@ -68,7 +68,8 @@ class WidgetDatabase extends GetxController {
     _db = await _dbFactory.openDatabase(directory.path + _dbPath);
   }
 
-  void deleteRecords() {
+  void deleteRecords() async {
+    await _openOrCreateDatabase();
     _anotherStore.delete(_db);
   }
 }
