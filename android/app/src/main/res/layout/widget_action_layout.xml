@@ -30,7 +30,7 @@
         android:id="@+id/btn_action_name"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:src="@drawable/ic_gate"
+        android:visibility="gone"
         android:background="@android:color/white"
         android:layout_margin="5dp"/>
 

@@ -14,18 +14,16 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.asksira.dropdownview.DropDownView;
-import com.asksira.dropdownview.OnDropDownSelectionListener;
 
 import net.michnovka.dockontrol.db.DatabaseHelper;
-import net.michnovka.dockontrol.dialog.DialogWidgetChooser;
 import net.michnovka.dockontrol.model.ActionModel;
 import net.michnovka.dockontrol.model.WidgetInfoModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static net.michnovka.dockontrol.ActionWidgetProvider.EXTRA_WIDGET_ID;
+import static net.michnovka.dockontrol.ActionWidgetProvider.getBitmapImg;
 
 public class SelectWidgetActivity extends Activity {
 
@@ -73,7 +71,10 @@ public class SelectWidgetActivity extends Activity {
                 RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.widget_action_layout);
                 remoteViews.setViewVisibility(R.id.btn_select_widget, View.GONE);
                 remoteViews.setViewVisibility(R.id.btn_action_name, View.VISIBLE);
-                remoteViews.setTextViewText(R.id.btn_action_name, actionModel.getName());
+                remoteViews.setImageViewResource(R.id.btn_action_name, getBitmapImg(actionModel.getAction(),this));
+
+//                remoteViews.setImageViewBitmap(R.id.btn_action_name, getBitmapImg(actionModel.getAction(),this));
+//                remoteViews.setTextViewText(R.id.btn_action_name, actionModel.getName());
                 appWidgetManager.updateAppWidget(widgetId, remoteViews);
 
                 ComponentName thisWidget = new ComponentName(this, ActionWidgetProvider.class);
