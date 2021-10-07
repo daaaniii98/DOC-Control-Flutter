@@ -12,14 +12,26 @@
         android:text="@string/you_need_to_login"
         android:layout_gravity="center"
         android:id="@+id/tx_login"
+        android:textSize="@dimen/dimen_small"
         android:gravity="center"/>
+
     <Button
+        android:id="@+id/btn_select_widget"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:text="@string/select_widget"
+        android:textSize="@dimen/dimen_small"
+        android:visibility="gone"
+        android:background="@android:color/white"
+        android:layout_margin="5dp"/>
+
+
+    <ImageButton
         android:id="@+id/btn_action_name"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:text="@string/open_car"
-        android:visibility="gone"
-        android:background="@drawable/bg_plain"
+        android:src="@drawable/ic_gate"
+        android:background="@android:color/white"
         android:layout_margin="5dp"/>
 
     <ProgressBar

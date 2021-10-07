@@ -1,12 +1,19 @@
 package net.michnovka.dockontrol.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Root implements Serializable {
     String username;
     String password;
     List<ActionModel> data;
+
+    public Root(){
+        this.username = "";
+        this.password = "";
+        data = new ArrayList<>();
+    }
 
     public String getUsername() {
         return username;

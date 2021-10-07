@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/select_a_action"
+        android:padding="10dp"
+        style="@style/TextAppearance.Compat.Notification.Title"/>
+
+    <com.asksira.dropdownview.DropDownView
+        android:id="@+id/dropdownview"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:placeholder_text="Please select"
+        app:dropdownItem_text_gravity="start"
+        app:dropdownItem_compound_drawable_selected="@drawable/ic_done"
+        app:filter_bar_background_color="@color/my_blue"
+        app:filter_text_color="@android:color/white"
+        app:arrow_drawable="@drawable/ic_arrow_down"
+        app:arrow_width="24dp"
+        app:dropDownItem_text_color_selected="@android:color/black"
+        app:divider_color="@android:color/black"
+        app:dropDownItem_text_size_selected="18sp"
+        app:bottom_decorator_color="@android:color/black"
+        app:bottom_decorator_height="4dp"
+        app:expansion_style="reveal"
+        app:last_item_has_divider="false"
+        app:arrow_align_end="true"
+        app:arrow_start_margin="8dp"
+        app:arrow_end_margin="16dp"
+        app:deselectable="false"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Widget"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="end"
+        android:id="@+id/btn_select"
+        android:textColor="@android:color/white"
+        android:background="@drawable/bg_btn"
+        android:paddingHorizontal="20sp"
+        android:layout_marginRight="10dp"/>
+</LinearLayout>

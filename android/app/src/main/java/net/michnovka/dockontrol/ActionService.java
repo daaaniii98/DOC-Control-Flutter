@@ -17,6 +17,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import net.michnovka.dockontrol.db.DatabaseHelper;
+import net.michnovka.dockontrol.model.WidgetInfoModel;
 import net.michnovka.dockontrol.network.API;
 import net.michnovka.dockontrol.network.NetworkResourceHolder;
 import net.michnovka.dockontrol.network.NetworkStatus;
@@ -36,6 +38,7 @@ public class ActionService extends BroadcastReceiver {
     public static boolean isActionTrigger = false;
     AppWidgetManager appWidgetManager;
     RemoteViews remoteViews;
+    DatabaseHelper databaseHelper;
 
     private static final String TAG = "ActionService";
     private static final String BASE_URL = "https://cp.libenskedoky.cz";
@@ -161,10 +164,16 @@ public class ActionService extends BroadcastReceiver {
                 .client(client)
                 .build();
         api = retrofitService.create(API.class);
+        databaseHelper = DatabaseHelper.getInstance();
 
 //        lifecycleRegistry.setCurrentState(Lifecycle.State.STARTED);
-        if (intent.getAction().equals(MY_WIDGET_ACTION)) {
-            Log.e(TAG, "onReceive: " + MY_WIDGET_ACTION);
+        if (intent.getAction().contains(MY_WIDGET_ACTION)) {
+//            Log.e(TAG, "onReceive: " + intent.getAction());
+//            databaseHelper =
+            String[] arr = intent.getAction().split(MY_WIDGET_ACTION);
+            Log.e(TAG, "onReceive: ********* IDDDD GGGG "  +arr[1] );
+//            WidgetInfoModel actionModel = databaseHelper.getWidgetInformation(Integer.parseInt(arr[1]));
+//            widgetId = actionModel.getWidgetId();
             triggerActionCallApi(intent.getExtras().getString(EXTRA_USERNAME),
                     intent.getExtras().getString(EXTRA_PASSWORD),
                     intent.getExtras().getString(EXTRA_ACTION));

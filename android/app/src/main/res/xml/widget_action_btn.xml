@@ -3,7 +3,7 @@
     android:description="@string/action_widget_description"
     android:initialLayout="@layout/widget_action_layout"
     android:minHeight="50dp"
-    android:minWidth="100dp"
+    android:minWidth="50dp"
     android:previewImage="@layout/widget_action_layout"
     android:resizeMode="horizontal"
     android:updatePeriodMillis="1800000"

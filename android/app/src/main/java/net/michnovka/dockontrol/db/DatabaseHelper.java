@@ -1,6 +1,7 @@
 package net.michnovka.dockontrol.db;
 
 import net.michnovka.dockontrol.model.Root;
+import net.michnovka.dockontrol.model.WidgetInfoModel;
 
 import io.paperdb.Paper;
 
@@ -28,7 +29,14 @@ public class DatabaseHelper {
     }
 
     public void deleteData() {
-//        Paper.book().write(KEY_RESPONSE,null);
-        Paper.book(BOOK_NAME).destroy();
+        Paper.book(BOOK_NAME).write(KEY_RESPONSE,new Root());
+    }
+    
+    public void saveWidgetInformation(WidgetInfoModel widgetInfoModel){
+        Paper.book(BOOK_NAME).write(String.valueOf(widgetInfoModel.getWidgetId()),widgetInfoModel);
+    }
+
+    public WidgetInfoModel getWidgetInformation(int widgetId){
+        return Paper.book(BOOK_NAME).read(String.valueOf(widgetId),null);
     }
 }
