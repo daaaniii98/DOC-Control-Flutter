@@ -1,64 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/bg_plain"
-    android:layout_width="match_parent"
+    android:layout_width="50dp"
     android:layout_height="50dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_plain"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/you_need_to_login"
+            android:layout_gravity="center"
+            android:id="@+id/tx_login"
+            android:textSize="@dimen/dimen_small"
+            android:visibility="gone"
+
+            android:gravity="center"/>
+        <Button
+            android:id="@+id/btn_select_widget"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:text="@string/select_widget"
+            android:textSize="@dimen/dimen_small"
+            android:background="@android:color/white"
+            android:layout_margin="5dp"/>
+        <ImageButton
+            android:id="@+id/btn_action_name"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:background="@android:color/white"
+            android:layout_margin="5dp"/>
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/yellow_color"
+            android:id="@+id/progress"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:indeterminateTint="@android:color/black"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_check"
+            android:id="@+id/img_status_success"
+            android:visibility="gone"
+            android:padding="5dp"
+            android:background="@color/green_color"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_check"
+            android:id="@+id/img_status_failure"
+            android:visibility="gone"
+            android:padding="5dp"
+            android:background="@color/red_color"
+            />
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/you_need_to_login"
+        android:id="@+id/tx_widget_name"
+        android:textSize="8sp"
+        android:text="@string/no_name"
+        android:textColor="@android:color/black"
         android:layout_gravity="center"
-        android:id="@+id/tx_login"
-        android:textSize="@dimen/dimen_small"
         android:gravity="center"/>
-
-    <Button
-        android:id="@+id/btn_select_widget"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:text="@string/select_widget"
-        android:textSize="@dimen/dimen_small"
-        android:visibility="gone"
-        android:background="@android:color/white"
-        android:layout_margin="5dp"/>
-
-
-    <ImageButton
-        android:id="@+id/btn_action_name"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:background="@android:color/white"
-        android:layout_margin="5dp"/>
-
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/yellow_color"
-        android:padding="10dp"
-        android:id="@+id/progress"
-        android:visibility="gone"
-        android:indeterminateTint="@android:color/black"/>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_check"
-        android:visibility="gone"
-        android:id="@+id/img_status_success"
-        android:background="@color/green_color"
-        android:padding="10dp"/>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_close"
-        android:visibility="gone"
-        android:id="@+id/img_status_failure"
-        android:background="@color/red_color"
-        android:padding="10dp"/>
 
 </LinearLayout>

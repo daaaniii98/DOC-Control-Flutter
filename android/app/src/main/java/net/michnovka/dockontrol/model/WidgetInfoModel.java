@@ -2,8 +2,9 @@ package net.michnovka.dockontrol.model;
 
 public class WidgetInfoModel extends ActionModel {
     int widgetId;
-
-    public WidgetInfoModel(ActionModel actionModel,int widgetId){
+    String widgetName;
+    
+    public WidgetInfoModel(ActionModel actionModel,int widgetId,String widgetName){
         this.action = actionModel.action;
         this.allow1minOpen = actionModel.allow1minOpen;
         this.allowWidget = actionModel.allowWidget;
@@ -13,6 +14,7 @@ public class WidgetInfoModel extends ActionModel {
         this.name = actionModel.name;
         this.type = actionModel.type;
         this.widgetId = widgetId;
+        this.widgetName = widgetName;
     }
     public int getWidgetId() {
         return widgetId;
@@ -20,5 +22,13 @@ public class WidgetInfoModel extends ActionModel {
 
     public void setWidgetId(int widgetId) {
         this.widgetId = widgetId;
+    }
+
+    public String getWidgetName() {
+        return widgetName;
+    }
+
+    public void setWidgetName(String widgetName) {
+        this.widgetName = widgetName;
     }
 }

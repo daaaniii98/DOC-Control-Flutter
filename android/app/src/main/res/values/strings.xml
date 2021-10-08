@@ -3,6 +3,8 @@
     <string name="action_widget_description">Action button for triggering action</string>
     <string name="open_car">Open Car</string>
     <string name="you_need_to_login">You need to login</string>
-    <string name="select_widget">Select Widget</string>
     <string name="select_a_action">Select a action</string>
+    <string name="name_your_widget">Name your widget</string>
+    <string name="select_widget">Select Widget</string>
+    <string name="no_name">No Name</string>
 </resources>

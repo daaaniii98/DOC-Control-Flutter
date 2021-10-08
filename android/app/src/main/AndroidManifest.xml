@@ -37,7 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".ActionService" />
+        <receiver android:name=".ActionWidgetHandler" />
         <activity
             android:name=".SelectWidgetActivity"/>
         <!--       <service android:name=".ActionService"  />-->

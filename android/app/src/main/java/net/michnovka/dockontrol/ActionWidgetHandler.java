@@ -32,13 +32,13 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class ActionService extends BroadcastReceiver {
+public class ActionWidgetHandler extends BroadcastReceiver {
     public static final String MY_WIDGET_ACTION = "action.action.button.press";
 //    private LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
     public static boolean isActionTrigger = false;
     AppWidgetManager appWidgetManager;
     RemoteViews remoteViews;
-    DatabaseHelper databaseHelper;
+//    DatabaseHelper databaseHelper;
 
     private static final String TAG = "ActionService";
     private static final String BASE_URL = "https://cp.libenskedoky.cz";
@@ -49,13 +49,13 @@ public class ActionService extends BroadcastReceiver {
     public final static String EXTRA_PASSWORD = "EXTRA_PASSWORD";
     public final static String EXTRA_ACTION = "EXTRA_ACTION";
     public final static String EXTRA_WIDGET_ID = "EXTRA_WIDGET_ID";
+    public final static String EXTRA_WIDGET_NAME = "EXTRA_WIDGET_NAME";
     int widgetId;
+    String widgetName;
+    
     public void triggerActionCallApi(String username, String password, String action) {
         isActionTrigger = true;
        statusLoading();
-
-//        MutableLiveData<NetworkResourceHolder> responseData = new MutableLiveData<>();
-//        responseData.setValue(new NetworkResourceHolder().loading());
 
         Call<String> response = api.triggerActionApi(username, password, action);
         response.enqueue(new Callback<String>() {
@@ -71,17 +71,13 @@ public class ActionService extends BroadcastReceiver {
                         } else {
                             myResponse.setmStatus(NetworkStatus.ERROR);
                         }
-//                        responseData.setValue(new NetworkResourceHolder().success(myResponse.getStatus(),
-//                                myResponse.getMessage()));
                         statusSuccess();
                         destroyState();
                     } else {
-//                        responseData.setValue(new NetworkResourceHolder().error("Error", "Unknown-Error"));
                         destroyState();
                         statusFailed();
                     }
                 } else {
-//                    responseData.setValue(new NetworkResourceHolder().error("Error", "Unknown-Error"));
                     destroyState();
                     statusFailed();
                 }
@@ -89,7 +85,6 @@ public class ActionService extends BroadcastReceiver {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-//                responseData.setValue(new NetworkResourceHolder().error("Error", t.getMessage()));
                 destroyState();
                 statusFailed();
             }
@@ -101,8 +96,6 @@ public class ActionService extends BroadcastReceiver {
         remoteViews.setViewVisibility(R.id.btn_action_name, View.GONE);
         remoteViews.setViewVisibility(R.id.progress, View.VISIBLE);
         appWidgetManager.updateAppWidget(widgetId,remoteViews);
-//        appWidgetManager.updateAppWidget((int[]) null,remoteViews);
-
     }
 
     private void statusSuccess(){
@@ -150,7 +143,7 @@ public class ActionService extends BroadcastReceiver {
         appWidgetManager = AppWidgetManager.getInstance(context);
         remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_action_layout);
         widgetId = intent.getExtras().getInt(EXTRA_WIDGET_ID);
-
+        widgetName= intent.getExtras().getString(EXTRA_WIDGET_NAME);
 //        lifecycleRegistry.setCurrentState(Lifecycle.State.CREATED);
 
         OkHttpClient client = UnsafeOkHttpClient.getUnsafeOkHttpClient();
@@ -164,7 +157,7 @@ public class ActionService extends BroadcastReceiver {
                 .client(client)
                 .build();
         api = retrofitService.create(API.class);
-        databaseHelper = DatabaseHelper.getInstance();
+//        databaseHelper = DatabaseHelper.getInstance();
 
 //        lifecycleRegistry.setCurrentState(Lifecycle.State.STARTED);
         if (intent.getAction().contains(MY_WIDGET_ACTION)) {
