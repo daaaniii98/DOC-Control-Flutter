@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="50dp"
-    android:layout_height="50dp">
+    android:layout_height="65dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_height="35dp"
         android:orientation="horizontal"
         android:background="@drawable/bg_plain"
         >
@@ -68,9 +68,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/tx_widget_name"
-        android:textSize="8sp"
+        android:textSize="12sp"
         android:text="@string/no_name"
-        android:textColor="@android:color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:textColor="@android:color/white"
+        android:shadowColor="@android:color/black"
         android:layout_gravity="center"
         android:gravity="center"/>
 

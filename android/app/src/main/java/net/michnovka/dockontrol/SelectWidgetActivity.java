@@ -87,6 +87,7 @@ public class SelectWidgetActivity extends Activity {
                 remoteViews.setImageViewResource(R.id.btn_action_name, getBitmapImg(actionModel.getAction(),this));
     
                 appWidgetManager.updateAppWidget(widgetId, remoteViews);
+                    
                 ComponentName thisWidget = new ComponentName(this, ActionWidgetProvider.class);
                 ActionWidgetProvider.updateWidget(this,appWidgetManager,appWidgetManager.getAppWidgetIds(thisWidget));
 
