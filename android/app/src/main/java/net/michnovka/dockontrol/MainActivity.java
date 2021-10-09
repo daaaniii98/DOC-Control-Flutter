@@ -46,14 +46,12 @@ public class MainActivity extends FlutterActivity implements PluginRegistry.Plug
                         Gson gson = new Gson();
                         com.google.gson.stream.JsonReader reader = new com.google.gson.stream.JsonReader(new StringReader(call.arguments.toString()));
                         reader.setLenient(true);
-                        Log.e(TAG, "configureFlutterEngine__JSON_PARSING");
                         rootResponse = gson.fromJson(reader, Root.class);
                         databaseHelper.saveData(rootResponse);
-                        Log.e(TAG, "configureFlutterEngine: " + new Gson().toJson(rootResponse));
-                        Log.e(TAG, "configureFlutterEngine: " + call.method);
-                        Log.e(TAG, "configureFlutterEngine: sending REsponse ");
+                        // TODO Add a valid response
                         result.success("YESS GOT IT");
                     } else if (call.method.equals("logout")) {
+                        // TODO Add a valid response
                         DatabaseHelper.getInstance().deleteData();
                         result.success("YESS GOT IT");
                     }

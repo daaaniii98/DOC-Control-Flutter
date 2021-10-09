@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The data which is passed from flutter 
+ */
 public class Root implements Serializable {
     String username;
     String password;

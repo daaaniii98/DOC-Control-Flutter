@@ -3,6 +3,9 @@ package net.michnovka.dockontrol.model;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Action Model that was received from the Login API
+ */
 public class ActionModel implements Serializable {
     String id;
     String action;

@@ -32,26 +32,34 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
+/**
+ * [BroadcastReceiver] that is trigger everytime the widget is pressed
+ */
 public class ActionWidgetHandler extends BroadcastReceiver {
+    private static final String TAG = "ActionService";
+
+    // Broadcast Action
     public static final String MY_WIDGET_ACTION = "action.action.button.press";
-//    private LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
     public static boolean isActionTrigger = false;
+    // To update Widget
     AppWidgetManager appWidgetManager;
     RemoteViews remoteViews;
-//    DatabaseHelper databaseHelper;
 
-    private static final String TAG = "ActionService";
+    //To trigger API action
     private static final String BASE_URL = "https://cp.libenskedoky.cz";
     private API api;
     private Retrofit retrofitService;
 
+    // Extra Tag used to pass data using [INTENT]
     public final static String EXTRA_USERNAME = "EXTRA_USERNAME";
     public final static String EXTRA_PASSWORD = "EXTRA_PASSWORD";
     public final static String EXTRA_ACTION = "EXTRA_ACTION";
     public final static String EXTRA_WIDGET_ID = "EXTRA_WIDGET_ID";
     public final static String EXTRA_WIDGET_NAME = "EXTRA_WIDGET_NAME";
+    
+    // Current Widget ID/Name
     int widgetId;
-    String widgetName;
+//    String widgetName;
     
     public void triggerActionCallApi(String username, String password, String action) {
         isActionTrigger = true;
@@ -89,7 +97,6 @@ public class ActionWidgetHandler extends BroadcastReceiver {
                 statusFailed();
             }
         });
-//        return responseData;
     }
 
     private void statusLoading() {
@@ -116,15 +123,12 @@ public class ActionWidgetHandler extends BroadcastReceiver {
         remoteViews.setViewVisibility(R.id.img_status_failure, View.GONE);
         remoteViews.setViewVisibility(R.id.img_status_success, View.GONE);
         appWidgetManager.updateAppWidget(widgetId,remoteViews);
-//        appWidgetManager.updateAppWidget((int[]) null,remoteViews);
     }
 
     private void statusFailed(){
         remoteViews.setViewVisibility(R.id.progress, View.GONE);
         remoteViews.setViewVisibility(R.id.img_status_failure, View.VISIBLE);
         appWidgetManager.updateAppWidget(widgetId,remoteViews);
-//        appWidgetManager.updateAppWidget((int[]) null,remoteViews);
-
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -134,7 +138,6 @@ public class ActionWidgetHandler extends BroadcastReceiver {
     }
 
     private void destroyState() {
-//        new Handler().postDelayed(() -> lifecycleRegistry.setCurrentState(Lifecycle.State.DESTROYED), 3000);
         isActionTrigger = false;
     }
 
@@ -143,8 +146,7 @@ public class ActionWidgetHandler extends BroadcastReceiver {
         appWidgetManager = AppWidgetManager.getInstance(context);
         remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_action_layout);
         widgetId = intent.getExtras().getInt(EXTRA_WIDGET_ID);
-        widgetName= intent.getExtras().getString(EXTRA_WIDGET_NAME);
-//        lifecycleRegistry.setCurrentState(Lifecycle.State.CREATED);
+//        widgetName= intent.getExtras().getString(EXTRA_WIDGET_NAME);
 
         OkHttpClient client = UnsafeOkHttpClient.getUnsafeOkHttpClient();
         Gson gson = new GsonBuilder()
@@ -157,22 +159,10 @@ public class ActionWidgetHandler extends BroadcastReceiver {
                 .client(client)
                 .build();
         api = retrofitService.create(API.class);
-//        databaseHelper = DatabaseHelper.getInstance();
-
-//        lifecycleRegistry.setCurrentState(Lifecycle.State.STARTED);
         if (intent.getAction().contains(MY_WIDGET_ACTION)) {
-//            Log.e(TAG, "onReceive: " + intent.getAction());
-//            databaseHelper =
-            String[] arr = intent.getAction().split(MY_WIDGET_ACTION);
-            Log.e(TAG, "onReceive: ********* IDDDD GGGG "  +arr[1] );
-//            WidgetInfoModel actionModel = databaseHelper.getWidgetInformation(Integer.parseInt(arr[1]));
-//            widgetId = actionModel.getWidgetId();
             triggerActionCallApi(intent.getExtras().getString(EXTRA_USERNAME),
                     intent.getExtras().getString(EXTRA_PASSWORD),
                     intent.getExtras().getString(EXTRA_ACTION));
-//            .observe(this, networkResourceHolder -> {
-//                Log.e(TAG, "onReceive_OBSERVER: " + networkResourceHolder.getmStatus().name());
-//            });
         }
     }
 

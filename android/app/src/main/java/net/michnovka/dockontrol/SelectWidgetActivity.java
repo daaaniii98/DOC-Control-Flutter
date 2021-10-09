@@ -62,7 +62,6 @@ public class SelectWidgetActivity extends Activity {
                 actions.add(actionModel.getName());
             }
         }
-        Log.e(TAG, "onReceive:  ACTION_SELECT_WIDGET");
 
         dropDownView.setDropDownListItem(actions);
         dropDownView.setOnSelectionListener((view, position) -> {
