@@ -4,7 +4,6 @@ import 'package:flutter_get_x_practice/constant/MyConstants.dart';
 import 'package:flutter_get_x_practice/controller/WidgetScreenController.dart';
 import 'package:flutter_get_x_practice/screens/login_screen.dart';
 import 'package:flutter_get_x_practice/widgets/animate/animate_button_widget.dart';
-import 'package:flutter_get_x_practice/widgets/camera_action_button.dart';
 import 'package:flutter_get_x_practice/widgets/error_widget.dart';
 import 'package:flutter_get_x_practice/widgets/list_element.dart';
 import 'package:flutter_get_x_practice/widgets/simple_text_button.dart';

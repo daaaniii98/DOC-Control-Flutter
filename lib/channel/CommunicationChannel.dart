@@ -29,11 +29,10 @@ class CommunicationChannel{
         "data":jsonArr
       });
 
-      // print('jsonArrjsonArr ${jsonObject.toString()}');
       final response = await _widgetChannel.invokeMethod('widget_data',jsonObject.toString());
       print('Sending message FLUTTER :: $response');
     } on PlatformException catch (e) {
-      print("Failed to get battery level: '${e.message}'.");
+      print("Failed to get acknowledgment: '${e.message}'.");
     }
   }
   Future<void> logoutSignal() async {
@@ -41,7 +40,7 @@ class CommunicationChannel{
       final response = await _widgetChannel.invokeMethod('logout');
       print('Sending message FLUTTER :: $response');
     } on PlatformException catch (e) {
-      print("Failed to get battery level: '${e.message}'.");
+      print("Failed to get acknowledgment: '${e.message}'.");
     }
   }
 }

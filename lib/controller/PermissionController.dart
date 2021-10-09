@@ -2,6 +2,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+/**
+ * Not Currently in use
+ */
 class PermissionController extends GetxController{
   final List<Permission> _permissions = [Permission.storage];
   Future checkPermissions() async {

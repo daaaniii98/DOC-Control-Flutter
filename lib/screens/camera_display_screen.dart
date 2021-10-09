@@ -21,15 +21,15 @@ class _CameraDisplayScreenState extends State<CameraDisplayScreen> {
 
   @override
   void initState() {
-    controller.startTimer(allowAction.cameras!);
+    controller.getCamUri(allowAction.cameras!);
     super.initState();
   }
 
-  @override
-  void dispose() {
-    controller.cancelTimer();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   controller.cancelTimer();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

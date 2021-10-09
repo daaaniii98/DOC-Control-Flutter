@@ -21,7 +21,7 @@ class WidgetScreenController extends GetxController {
   Future<void> getWidgetResponse(String username, String password) async {
     loading.value = true;
     final records = await _widgetDatabase.readRecords();
-    print('records_get ${records}');
+    // print('records_get ${records}');
     await channel.sendWidgetData(records,username,password);
     List<AllowedAction> allowedActions = List.empty(growable: true);
 

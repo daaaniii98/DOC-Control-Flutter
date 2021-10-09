@@ -26,11 +26,11 @@ class ActionController extends GetxController {
         url: ParmsHelper.URL_BASE,
         fileParms: "/camera.php",
         queryParameters: queryParameters);
-    print('Final_CAMERA_URI ${uri}');
+    // print('Final_CAMERA_URI ${uri}');
     try {
       final uri = Helper.parseGetUrl(
           url: ParmsHelper.URL_BASE, queryParameters: queryParameters);
-      print("Requesting ${uri.toString()}");
+      // print("Requesting ${uri.toString()}");
       final response = await http.get(
         uri,
         headers: {

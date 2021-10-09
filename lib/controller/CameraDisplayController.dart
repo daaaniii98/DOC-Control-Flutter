@@ -9,8 +9,8 @@ class CameraDisplayController extends GetxController {
   MyPreference _preference = Get.find<MyPreference>();
   Rx<String> cameraURL = new Rx<String>("");
 
-  late Timer _timer;
-  var timerCount = 0;
+  // late Timer _timer;
+  // var timerCount = 0;
 
   Future<Uri> getCameraUrl(List<String> camera) async {
     final user = await _preference.getUser();
@@ -30,19 +30,18 @@ class CameraDisplayController extends GetxController {
 
     final uri = Helper.parseGetUrl(url: ParmsHelper.URL_BASE,
         fileParms: "/camera.php", queryParameters: queryParameters);
-    print('Final_URI_CAM ${uri}');
+    // print('Final_URI_CAM ${uri}');
     return uri;
   }
 
-  void cancelTimer() {
-    // _timer.cancel();
-  }
+  // void cancelTimer() {
+  //   // _timer.cancel();
+  // }
 
 
-  void startTimer(List<String> camList) {
+  void getCamUri(List<String> camList) {
     getCameraUrl(camList).then((value) {
       // cameraURL.value = "";
-
       cameraURL.value = value.toString();
       update();
     });

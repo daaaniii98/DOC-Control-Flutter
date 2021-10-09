@@ -14,13 +14,10 @@ void main() async {
   await runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
-
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitDown,
         DeviceOrientation.portraitUp,
       ]);
-      // final prefs = await SharedPreferences.getInstance();
-      // runApp(MyApp(prefs));
       HomeBinding().dependencies();
       runApp(MyApp());
     },

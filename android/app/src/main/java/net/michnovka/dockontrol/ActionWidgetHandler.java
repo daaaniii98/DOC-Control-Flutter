@@ -4,8 +4,11 @@ import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -32,12 +35,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 /**
  * [BroadcastReceiver] that is trigger everytime the widget is pressed
  */
 public class ActionWidgetHandler extends BroadcastReceiver {
     private static final String TAG = "ActionService";
-
+    private Context context;
     // Broadcast Action
     public static final String MY_WIDGET_ACTION = "action.action.button.press";
     public static boolean isActionTrigger = false;
@@ -106,6 +111,15 @@ public class ActionWidgetHandler extends BroadcastReceiver {
     }
 
     private void statusSuccess(){
+        // Vibrate on Success
+        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            //deprecated in API 26
+            v.vibrate(500);
+        }
+
         remoteViews.setViewVisibility(R.id.progress, View.GONE);
         remoteViews.setViewVisibility(R.id.img_status_success, View.VISIBLE);
         appWidgetManager.updateAppWidget(widgetId,remoteViews);
@@ -147,7 +161,7 @@ public class ActionWidgetHandler extends BroadcastReceiver {
         remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_action_layout);
         widgetId = intent.getExtras().getInt(EXTRA_WIDGET_ID);
 //        widgetName= intent.getExtras().getString(EXTRA_WIDGET_NAME);
-
+        this.context = context;
         OkHttpClient client = UnsafeOkHttpClient.getUnsafeOkHttpClient();
         Gson gson = new GsonBuilder()
                 .setLenient()
