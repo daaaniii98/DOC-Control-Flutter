@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioAttributes;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,6 +12,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -114,11 +116,24 @@ public class ActionWidgetHandler extends BroadcastReceiver {
         // Vibrate on Success
         Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+            long[] pattern = {500, 500};
+            if (v != null) {
+                AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                        .setUsage(AudioAttributes.USAGE_ALARM) //key
+                        .build();
+                v.vibrate(pattern, 0, audioAttributes);
+                /*
+                To stop endless loop of vibration
+                 */
+                new Handler().postDelayed(() -> v.cancel(),600);
+            }
         } else {
-            //deprecated in API 26
-            v.vibrate(500);
+            if(v.hasVibrator()){
+                v.vibrate(1000);
+            }
         }
+
 
         remoteViews.setViewVisibility(R.id.progress, View.GONE);
         remoteViews.setViewVisibility(R.id.img_status_success, View.VISIBLE);
