@@ -20,7 +20,7 @@ class CameraButtonWidget extends StatelessWidget {
             width: 80,
             top: 0,
             bottom: 0,
-            right: 1,
+            right: 0,
             child:
             InkWell(
               onTap: moveToCamScreen,

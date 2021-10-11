@@ -126,25 +126,27 @@ public class ActionWidgetHandler extends BroadcastReceiver {
                 /*
                 To stop endless loop of vibration
                  */
-                new Handler().postDelayed(() -> v.cancel(),600);
+                new Handler().postDelayed(v::cancel,600);
+               setSuccessViews();
             }
         } else {
             if(v.hasVibrator()){
-                v.vibrate(1000);
+                v.vibrate(600);
+                setSuccessViews();
             }
         }
+    }
 
-
-        remoteViews.setViewVisibility(R.id.progress, View.GONE);
-        remoteViews.setViewVisibility(R.id.img_status_success, View.VISIBLE);
-        appWidgetManager.updateAppWidget(widgetId,remoteViews);
-
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+    private void setSuccessViews() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                statusNormal();
+                remoteViews.setViewVisibility(R.id.progress, View.GONE);
+                remoteViews.setViewVisibility(R.id.img_status_success, View.VISIBLE);
+                appWidgetManager.updateAppWidget(widgetId,remoteViews);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> statusNormal(), 2000);
             }
-        },2000);
+        },800);
     }
 
     private void statusNormal() {

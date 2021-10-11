@@ -109,23 +109,6 @@ class _AnimateButtonWidgetState extends State<AnimateButtonWidget> {
           })
           },
         ),
-        // InkWell(
-        //   onLongPress: () {
-        //     if (!_controller.loading.value) {
-        //       vibrate();
-        //       _controller.requestActionApi(widget.allowedAction.action).then(
-        //         (value) {
-        //           networkResponse(value);
-        //         },
-        //       );
-        //     }
-        //   },
-        //   splashColor: widget.splashColor,
-        //   child: AnimatedSwitcher(
-        //     duration: Duration(milliseconds: 500),
-        //     child: getCurrentWidget(),
-        //   ),
-        // ),
         );
   }
 

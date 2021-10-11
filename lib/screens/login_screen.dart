@@ -21,6 +21,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
   final _formKey = GlobalKey<FormState>();
   final textFieldFocusNode = FocusNode();
   bool _obscured = true;
@@ -228,17 +229,17 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void controllerListener() {
-    loginController.isUserLoggedIn().then((value) {
-      print('User Already Logged in');
-      if (value == true) {
-        Get.offNamed(HomeCategoryScreen.route, arguments: null);
-      }
-    });
+    // loginController.isUserLoggedIn().then((value) {
+    //   print('User Already Logged in');
+    //   if (value == true) {
+    //     Get.offNamed(HomeCategoryScreen.route, arguments: null);
+    //   }
+    // });
     loginController.loginObserver.stream.listen((event) {
       print('EMIT ${event.status}');
       if (event.status == NetworkResponseType.OK) {
-        _showSnackbar('Login Successful!');
         loginController.saveUserDetails(_username, _password);
+        _showSnackbar('Login Successful!');
         Get.offNamed(HomeCategoryScreen.route, arguments: event);
       } else {
         //display error
