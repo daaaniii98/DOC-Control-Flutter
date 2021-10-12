@@ -38,7 +38,6 @@ class CameraButtonWidget extends StatelessWidget {
             ),
           ),
         Container(
-          padding: EdgeInsets.only(right: 10),
           margin: EdgeInsets.symmetric(vertical: 8),
           child: Center(
             child: TextWidget(

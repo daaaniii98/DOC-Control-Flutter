@@ -71,13 +71,15 @@ class HomeCategoryScreen extends StatelessWidget {
                             // print('carEnter :: ${}');
                             return AnimateButtonWidget(
                               hashList[MyConstants.CAR_ENTER]![0],
-                              SimpleTextButton(
-                                fillColor: MyConstants.BLUE_CAM_COLOR,
-                                childWidget: TextWidget(
-                                  displayText:
-                                      hashList[MyConstants.CAR_ENTER]![0].name,
-                                  size: TEXT_SIZE.VERY_SMALL,
-                                  textColor: Colors.white,
+                              Center(
+                                child: SimpleTextButton(
+                                  fillColor: MyConstants.BLUE_CAM_COLOR,
+                                  childWidget: TextWidget(
+                                    displayText:
+                                        hashList[MyConstants.CAR_ENTER]![0].name,
+                                    size: TEXT_SIZE.VERY_SMALL,
+                                    textColor: Colors.white,
+                                  ),
                                 ),
                               ),splashColor: Colors.black
                             );
@@ -86,18 +88,20 @@ class HomeCategoryScreen extends StatelessWidget {
                             hashList[MyConstants.CAR_EXIT]![0].printObject();
                             return AnimateButtonWidget(
                               hashList[MyConstants.CAR_EXIT]![0],
-                              SimpleTextButton(
-                                fillColor: MyConstants.RED_CAM_COLOR,
-                                childWidget: TextWidget(
-                                  displayText:
-                                      hashList[MyConstants.CAR_EXIT]![0].name,
-                                  size: TEXT_SIZE.VERY_SMALL,
-                                  textColor: Colors.white,
+                              Center(
+                                child: SimpleTextButton(
+                                  fillColor: MyConstants.RED_CAM_COLOR,
+                                  childWidget: TextWidget(
+                                    displayText:
+                                        hashList[MyConstants.CAR_EXIT]![0].name,
+                                    size: TEXT_SIZE.VERY_SMALL,
+                                    textColor: Colors.white,
+                                  ),
                                 ),
                               )
                             ,splashColor: Colors.black,);
                           } else {
-                            return ListElementWidget(key, hashList[key]);
+                            return Center(child: ListElementWidget(key, hashList[key]));
                           }
                         },
                         itemCount: hashList.entries.length);

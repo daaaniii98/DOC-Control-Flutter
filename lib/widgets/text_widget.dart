@@ -14,17 +14,18 @@ class TextWidget extends StatelessWidget {
       return Theme.of(context).textTheme.headline4!.copyWith(
           color: textColor
       );
-    } else if (size == TEXT_SIZE.LARGE) {
+    } else if (size == TEXT_SIZE.LARGE ) {
       return Theme.of(context).textTheme.headline2!.copyWith(
           color: textColor
       );
     } else if(size == TEXT_SIZE.SMALL){
-      return Theme.of(context).textTheme.headline6!.copyWith(
+      return Theme.of(context).textTheme.headline5!.copyWith(
           color: textColor
       );
     }else{
-      return Theme.of(context).textTheme.button!.copyWith(
-        color: textColor
+      return Theme.of(context).textTheme.headline6!.copyWith(
+        color: textColor,
+            fontSize: 17
       );
     }
   }

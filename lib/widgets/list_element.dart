@@ -13,24 +13,29 @@ class ListElementWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(list?.length);
-    return Column(
-      children: [
-        TextWidget(displayText: title.toUpperCase(), size: TEXT_SIZE.SMALL),
-        ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return AnimateButtonWidget(
-                list![index],
-                CameraButtonWidget(
-                  allowedAction: list![index],
-                )
-            );
-            // return CameraButtonWidget(allowedAction: list![index]);
-          },
-          itemCount: list?.length,
-        ),
-      ],
+    return Container(
+      margin: EdgeInsets.only(top: 10,bottom: 6),
+      child: Column(
+        children: [
+          TextWidget(displayText: title.toUpperCase(), size: TEXT_SIZE.SMALL),
+          ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return AnimateButtonWidget(
+                  list![index],
+                  Center(
+                    child: CameraButtonWidget(
+                      allowedAction: list![index],
+                    ),
+                  )
+              );
+              // return CameraButtonWidget(allowedAction: list![index]);
+            },
+            itemCount: list?.length,
+          ),
+        ],
+      ),
     );
   }
 
