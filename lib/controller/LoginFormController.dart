@@ -35,8 +35,8 @@ class LoginFormController extends GetxController {
     // isLogin.value = await _preference.isLoggedIn();
   }
 
-  void saveUserDetails(String username, String password) {
-    _preference.setLogin(new UserModel(username, password));
+  void saveUserDetails(String username, String password, String baseUrl) {
+    _preference.setLogin(new UserModel(username, password,baseUrl));
   }
 
   Future<void> loginUser(String username, String password) async {

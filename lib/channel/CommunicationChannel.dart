@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:flutter_get_x_practice/helper/ParmsHelper.dart';
 import 'package:flutter_get_x_practice/model/AllowedAction.dart';
+import 'dart:developer' as developer;
 
 class CommunicationChannel{
   static const _widgetChannel = const MethodChannel('dockontrol.yorbax/widget_data');
@@ -26,15 +28,18 @@ class CommunicationChannel{
       final jsonObject = jsonEncode({
         "username":username.toString(),
         "password":password.toString(),
+        "base_url":"https://${ParmsHelper.URL_BASE}",
         "data":jsonArr
       });
-
+      // print('jsonObject ${jsonObject}');
+      developer.log('jsonObject_jsonObject', error: jsonObject);
       final response = await _widgetChannel.invokeMethod('widget_data',jsonObject.toString());
       print('Sending message FLUTTER :: $response');
     } on PlatformException catch (e) {
       print("Failed to get acknowledgment: '${e.message}'.");
     }
   }
+
   Future<void> logoutSignal() async {
     try {
       final response = await _widgetChannel.invokeMethod('logout');

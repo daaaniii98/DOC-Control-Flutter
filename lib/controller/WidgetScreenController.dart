@@ -4,6 +4,7 @@ import 'package:flutter_get_x_practice/channel/CommunicationChannel.dart';
 import 'package:flutter_get_x_practice/db/MyPreference.dart';
 import 'package:flutter_get_x_practice/db/WidgetDatabase.dart';
 import 'package:flutter_get_x_practice/helper/LoginHelper.dart';
+import 'package:flutter_get_x_practice/helper/ParmsHelper.dart';
 import 'package:flutter_get_x_practice/model/AllowedAction.dart';
 import 'package:flutter_get_x_practice/model/Config.dart';
 import 'package:flutter_get_x_practice/model/LoginRootResponse.dart';
@@ -18,10 +19,11 @@ class WidgetScreenController extends GetxController {
   RxBool loading = false.obs;
   WidgetDatabase _widgetDatabase = Get.find<WidgetDatabase>();
 
-  Future<void> getWidgetResponse(String username, String password) async {
+  Future<void> getWidgetResponse(String username, String password, String baseUrl) async {
     loading.value = true;
     final records = await _widgetDatabase.readRecords();
     // print('records_get ${records}');
+    ParmsHelper.URL_BASE = baseUrl;
     await channel.sendWidgetData(records,username,password);
     List<AllowedAction> allowedActions = List.empty(growable: true);
 
@@ -52,7 +54,7 @@ class WidgetScreenController extends GetxController {
     } else {
       // print('Response was null calling API now');
       final user = await _preference.getUser();
-      getWidgetResponse(user.username, user.password);
+      getWidgetResponse(user.username, user.password,user.baseUrl);
     }
   }
 

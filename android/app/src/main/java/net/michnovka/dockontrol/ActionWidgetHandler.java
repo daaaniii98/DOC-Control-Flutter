@@ -53,7 +53,7 @@ public class ActionWidgetHandler extends BroadcastReceiver {
     RemoteViews remoteViews;
 
     //To trigger API action
-    private static final String BASE_URL = "https://cp.libenskedoky.cz";
+        private static final String BASE_URL = "https://cp.libenskedoky.cz";
     private API api;
     private Retrofit retrofitService;
 

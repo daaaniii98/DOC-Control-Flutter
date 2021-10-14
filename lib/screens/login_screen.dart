@@ -1,9 +1,10 @@
+import 'dart:io';
+import'dart:io' show Platform;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_get_x_practice/channel/CommunicationChannel.dart';
 import 'package:flutter_get_x_practice/constant/MyConstants.dart';
 import 'package:flutter_get_x_practice/controller/LoginFormController.dart';
 import 'package:flutter_get_x_practice/helper/ParmsHelper.dart';
-import 'package:flutter_get_x_practice/model/AllowedAction.dart';
 import 'package:flutter_get_x_practice/model/NetworkResponseType.dart';
 import 'package:flutter_get_x_practice/utils/UtilMethods.dart';
 import 'package:flutter_get_x_practice/widgets/text_widget.dart';
@@ -25,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final textFieldFocusNode = FocusNode();
   bool _obscured = true;
-  late String _username, _password;
+  late String _username, _password,_baseUrl;
   LoginFormController loginController = Get.find<LoginFormController>();
 
   void _toggleObscured() {
@@ -65,10 +66,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO For test purposes
-    // loginController.readRecords();
-
-    // loginController.deleteRecords();
     return Scaffold(
       appBar: AppBar(
         title: Text(MyConstants.APP_NAME),
@@ -105,6 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     textInputAction: TextInputAction.next,
                     onSaved: (value) {
+                      _baseUrl = value!;
                       ParmsHelper.URL_BASE = value!;
                     },
                     validator: (value) {
@@ -238,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
     loginController.loginObserver.stream.listen((event) {
       print('EMIT ${event.status}');
       if (event.status == NetworkResponseType.OK) {
-        loginController.saveUserDetails(_username, _password);
+        loginController.saveUserDetails(_username, _password,_baseUrl);
         _showSnackbar('Login Successful!');
         Get.offNamed(HomeCategoryScreen.route, arguments: event);
       } else {
