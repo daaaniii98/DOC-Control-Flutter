@@ -22,6 +22,9 @@ class ListElementWidget extends StatelessWidget {
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
+              print('***** INSIDE-LIST-ELEMENT *****');
+              list![index].printObject();
+
               return AnimateButtonWidget(
                   list![index],
                   Center(

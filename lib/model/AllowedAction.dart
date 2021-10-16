@@ -1,15 +1,19 @@
 class AllowedAction {
   final String id;
-  String action;
+  String? action;
   final String type;
   final String name;
   final bool hasCamera;
   final bool allowWidget;
   final bool allow1minOpen;
   final List<String>? cameras;
+  //more attributes
+  final String? icon;
+  // nuki_pin_required
+  final bool? nukiPinRequired;
 
   AllowedAction(this.id, this.action, this.type, this.name, this.hasCamera,
-      this.allowWidget,this.allow1minOpen, {this.cameras});
+      this.allowWidget,this.allow1minOpen,this.icon, {this.cameras,this.nukiPinRequired});
 
   factory AllowedAction.fromJson(Map<String, dynamic> myJson) {
     List<String> cameraList = new List.empty(growable: true);
@@ -20,7 +24,6 @@ class AllowedAction {
         cameraList.add(i);
       }
       // print('camera_list : $cameraList');
-
     }
     return AllowedAction(
         myJson['id'].toString(),
@@ -30,6 +33,8 @@ class AllowedAction {
         myJson['has_camera'],
         myJson['allow_widget'],
         myJson['allow_1min_open'],
+        myJson['icon'],
+        nukiPinRequired: myJson.containsKey("nuki_pin_required") ? myJson["nuki_pin_required"]: null,
         cameras: cameraList.isEmpty ? null : cameraList);
   }
 
@@ -48,10 +53,12 @@ class AllowedAction {
         myJson['id'].toString(),
         myJson['action'],
         myJson['type'],
-        myJson['name'],
+        myJson['name '],
         myJson['hasCamera'],
         myJson['allowWidget'],
         myJson['allow1minOpen'],
+        myJson['icon'],
+        nukiPinRequired: myJson.containsKey("nukiPinRequired") ? myJson["nukiPinRequired"]: null,
         cameras: cameraList.isEmpty ? null : cameraList);
   }
 
@@ -64,6 +71,8 @@ class AllowedAction {
       'hasCamera': this.hasCamera,
       'allowWidget': this.allowWidget,
       'allow1minOpen': this.allow1minOpen,
+      'icon': this.icon,
+      'nukiPinRequired': this.nukiPinRequired == null ? false : this.nukiPinRequired,
     };
     if(this.cameras !=null){
       int key= 0;
@@ -80,6 +89,6 @@ class AllowedAction {
   void printObject(){
     print('id : ${this.id} , action : ${this.action} , type : ${this.type} , name : ${this.name}'
         ', hasCamera : ${this.hasCamera} , allowWidget : ${this.allowWidget} , '
-        'allow1Min : ${this.allow1minOpen} , camera : ${this.cameras}');
+        'allow1Min : ${this.allow1minOpen} , camera : ${this.cameras} , nukiPinRequired : ${this.nukiPinRequired}');
   }
 }

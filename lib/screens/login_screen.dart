@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_get_x_practice/constant/MyConstants.dart';
 import 'package:flutter_get_x_practice/controller/LoginFormController.dart';
+import 'package:flutter_get_x_practice/encode/encode.dart';
 import 'package:flutter_get_x_practice/helper/ParmsHelper.dart';
 import 'package:flutter_get_x_practice/model/NetworkResponseType.dart';
 import 'package:flutter_get_x_practice/utils/UtilMethods.dart';
@@ -66,6 +67,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //TODO Encoder Testing
+    Encoder encoder = new Encoder();
+    encoder.encodeString();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(MyConstants.APP_NAME),
@@ -103,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     textInputAction: TextInputAction.next,
                     onSaved: (value) {
                       _baseUrl = value!;
-                      ParmsHelper.URL_BASE = value!;
+                      ParmsHelper.URL_BASE = value;
                     },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -244,5 +249,6 @@ class _LoginScreenState extends State<LoginScreen> {
         _showSnackbar(event.message!);
       }
     });
+
   }
 }

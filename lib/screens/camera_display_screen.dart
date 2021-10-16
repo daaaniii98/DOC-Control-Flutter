@@ -85,6 +85,8 @@ class _CameraDisplayScreenState extends State<CameraDisplayScreen> {
         allowAction.name,
         allowAction.hasCamera,
         allowAction.allowWidget,
-        allowAction.allow1minOpen);
+        allowAction.allow1minOpen,
+        allowAction.icon
+    );
   }
 }

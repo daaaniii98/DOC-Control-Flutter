@@ -100,7 +100,7 @@ class _AnimateButtonWidgetState extends State<AnimateButtonWidget> {
           onPanDown: (_) => {
             _timer = Timer(Duration(milliseconds: 300), () { //
                     vibrate();
-                    _controller.requestActionApi(widget.allowedAction.action).then(
+                  _controller.requestActionApi(widget.allowedAction.action!).then(
                           (value) {
                 networkResponse(value);
               },
