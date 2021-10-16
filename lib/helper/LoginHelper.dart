@@ -23,6 +23,7 @@ class LoginHelper {
         HttpHeaders.contentTypeHeader: 'application/json',
       });
       final Map<String, dynamic> data = json.decode(response.body);
+      // print(data);
       return LoginRootResponseModel.fromJson(data);
     } catch (error) {
       return new LoginRootResponseModel(

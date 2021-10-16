@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 import 'home_category_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  static const route = "/";
+  static const route = "/home-screen";
 
   LoginScreen({Key? key}) : super(key: key);
 
@@ -239,10 +239,11 @@ class _LoginScreenState extends State<LoginScreen> {
     //   }
     // });
     loginController.loginObserver.stream.listen((event) {
-      print('EMIT ${event.status}');
+      print('LOGIN_EMIT___ ${event.status}');
       if (event.status == NetworkResponseType.OK) {
         loginController.saveUserDetails(_username, _password,_baseUrl);
         _showSnackbar('Login Successful!');
+        // event.allowed_actions!.forEach((element) {element.printObject(); });
         Get.offNamed(HomeCategoryScreen.route, arguments: event);
       } else {
         //display error

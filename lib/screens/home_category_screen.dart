@@ -17,7 +17,6 @@ class HomeCategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     controller.setWidgetsResponse(Get.arguments);
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

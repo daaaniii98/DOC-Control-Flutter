@@ -45,6 +45,8 @@ class LoginFormController extends GetxController {
       if (value.status == NetworkResponseType.OK) {
         _widgetDatabase.deleteRecords();
         // print('Inserting Data in database________');
+        print('PRINT_BEFORE_INSERT');
+        value.allowed_actions!.forEach((element) {element.printObject(); });
         _widgetDatabase
             .storeWidgets(value.allowed_actions!)
             .then((value) => print('INSERTTION_SUCCESS'))

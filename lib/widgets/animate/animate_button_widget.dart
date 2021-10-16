@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_get_x_practice/controller/ActionController.dart';
+import 'package:flutter_get_x_practice/dailog/nuki_password_dailog.dart';
+import 'package:flutter_get_x_practice/db/NukiPreference.dart';
 import 'package:flutter_get_x_practice/model/ActionResponseModel.dart';
 import 'package:flutter_get_x_practice/model/AllowedAction.dart';
 import 'package:flutter_get_x_practice/model/NetworkResponseType.dart';
@@ -30,6 +32,7 @@ class AnimateButtonWidget extends StatefulWidget {
 }
 
 class _AnimateButtonWidgetState extends State<AnimateButtonWidget> {
+  NukiPreference nukiPreference = Get.find<NukiPreference>();
   late BUTTON_STATE _currentState;
   late double _widgetheight;
   late ActionController _controller;
@@ -78,37 +81,45 @@ class _AnimateButtonWidgetState extends State<AnimateButtonWidget> {
     }
     loadingListener();
     return Container(
-        height: _widgetheight,
-        width: double.infinity,
-        margin: EdgeInsets.symmetric(horizontal: 8,vertical: 4),
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          border: Border.all(
-            width: 0.5,
-            color: Colors.black54,
+      height: _widgetheight,
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        border: Border.all(
+          width: 0.5,
+          color: Colors.black54,
+        ),
+      ),
+      child: GestureDetector(
+        child: TouchRippleEffect(
+          rippleColor: widget.splashColor,
+          child: AnimatedSwitcher(
+            duration: Duration(milliseconds: 500),
+            child: getCurrentWidget(),
           ),
         ),
-        child: GestureDetector(
-          child: TouchRippleEffect(
-            rippleColor: widget.splashColor,
-            child:  AnimatedSwitcher(
-              duration: Duration(milliseconds: 500),
-              child: getCurrentWidget(),
-            ),
-          ),
-          onPanCancel: () => _timer?.cancel(),
-          onPanDown: (_) => {
-            _timer = Timer(Duration(milliseconds: 300), () { //
-                    vibrate();
-                  _controller.requestActionApi(widget.allowedAction.action!).then(
-                          (value) {
-                networkResponse(value);
-              },
-            );
-          })
-          },
-        ),
-        );
+        onPanCancel: () => _timer?.cancel(),
+        onPanDown: (_) => {
+          _timer = Timer(
+            Duration(milliseconds: 300),
+            () {
+              //
+              vibrate();
+              // print('widget.allowedAction.type ${widget.allowedAction.type}');
+              if(widget.allowedAction.type == 'nuki'){
+                NukiPasswordDialog(context,widget.allowedAction).showDialog();
+              }else{
+                _controller.requestActionApi(widget.allowedAction.action!).then(
+                        (value) {
+                      networkResponse(value);
+                    });
+              }
+            },
+          )
+        },
+      ),
+    );
   }
 
   Future<void> vibrate() async {

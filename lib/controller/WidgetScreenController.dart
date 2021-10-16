@@ -19,22 +19,25 @@ class WidgetScreenController extends GetxController {
   RxBool loading = false.obs;
   WidgetDatabase _widgetDatabase = Get.find<WidgetDatabase>();
 
-  Future<void> getWidgetResponse(String username, String password, String baseUrl) async {
+  Future<void> getWidgetResponse(
+      String username, String password, String baseUrl) async {
     loading.value = true;
     final records = await _widgetDatabase.readRecords();
     // print('records_get ${records}');
     ParmsHelper.URL_BASE = baseUrl;
-    await channel.sendWidgetData(records,username,password);
+    await channel.sendWidgetData(records, username, password);
     List<AllowedAction> allowedActions = List.empty(growable: true);
 
-    records.forEach((element) { element.printObject();allowedActions.add(element);});
+    records.forEach((element) {
+      element.printObject();
+      allowedActions.add(element);
+    });
     loading.value = false;
     dataObserver.value = LoginRootResponseModel(
-      allowed_actions: allowedActions,
-      message: "Success",
-      status: NetworkResponseType.OK,
-      config: Config(10)
-    );
+        allowed_actions: allowedActions,
+        message: "Success",
+        status: NetworkResponseType.OK,
+        config: Config(10));
 
     // LoginHelper.loginUser(username, password).then((value) {
     //   loading.value = false;
@@ -48,13 +51,13 @@ class WidgetScreenController extends GetxController {
     if (resp != null) {
       // print('Response wasnt null');
       final user = await _preference.getUser();
-      await channel.sendWidgetData(resp.allowed_actions!,user.username, user.password);
+      await channel.sendWidgetData(
+          resp.allowed_actions!, user.username, user.password);
       dataObserver.value = resp;
-
     } else {
       // print('Response was null calling API now');
       final user = await _preference.getUser();
-      getWidgetResponse(user.username, user.password,user.baseUrl);
+      getWidgetResponse(user.username, user.password, user.baseUrl);
     }
   }
 

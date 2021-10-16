@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_get_x_practice/binding/HomeBinding.dart';
-import 'package:flutter_get_x_practice/helper/ParmsHelper.dart';
 import 'package:flutter_get_x_practice/screens/camera_display_screen.dart';
 import 'package:flutter_get_x_practice/screens/home_category_screen.dart';
 import 'package:get/get.dart';
@@ -33,7 +32,9 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   bool isLoggedIn;
+
   MyApp(this.isLoggedIn);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(
+          builder: (context) => LoginScreen(),
+        );
+      },
       getPages: [
         GetPage(name: LoginScreen.route, page: () => LoginScreen()),
         GetPage(

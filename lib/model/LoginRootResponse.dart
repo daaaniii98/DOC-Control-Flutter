@@ -1,8 +1,6 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:flutter_get_x_practice/constant/MyConstants.dart';
-
 import 'AllowedAction.dart';
 import 'Config.dart';
 import 'NetworkResponseType.dart';
@@ -29,7 +27,32 @@ class LoginRootResponseModel {
       List<AllowedAction> allowedList = new List.empty(growable: true);
       // print('Add');
       for (dynamic i in list) {
-        allowedList.add(AllowedAction.fromJson(i));
+        final parsedAction = AllowedAction.fromJson(i);
+        if (parsedAction.type == 'nuki') {
+          // print('Check_Nuki');
+          // parsedAction.printObject();
+
+          if (parsedAction.canLock!) {
+            final newNukiAction = AllowedAction(
+                "lock_${parsedAction.id}",
+                parsedAction.action,
+                parsedAction.type,
+                "LOCK ${parsedAction.name}",
+                parsedAction.hasCamera,
+                parsedAction.allow1minOpen,
+                parsedAction.allow1minOpen,
+                parsedAction.icon,
+                nukiBtnNumber: parsedAction.nukiBtnNumber,
+                cameras: parsedAction.cameras,
+                canLock: parsedAction.canLock,
+                nukiPinRequired: parsedAction.nukiPinRequired);
+            // print('ADDING_NEW ');
+            // newNukiAction.printObject();
+            allowedList.add(newNukiAction);
+          }
+          parsedAction.name = "UNLOCK ${parsedAction.name}";
+        }
+        allowedList.add(parsedAction);
       }
       // print("allowedList_length : ${allowedList.length}");
       final myConfig = Config.fromJson(myJson['config']);
