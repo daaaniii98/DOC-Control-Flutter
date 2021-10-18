@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_get_x_practice/channel/CommunicationChannel.dart';
 import 'package:flutter_get_x_practice/db/MyPreference.dart';
+import 'package:flutter_get_x_practice/db/NukiPreference.dart';
 import 'package:flutter_get_x_practice/db/WidgetDatabase.dart';
 import 'package:flutter_get_x_practice/helper/LoginHelper.dart';
 import 'package:flutter_get_x_practice/helper/ParmsHelper.dart';
@@ -18,6 +19,7 @@ class WidgetScreenController extends GetxController {
       Rx<LoginRootResponseModel>(LoginRootResponseModel());
   RxBool loading = false.obs;
   WidgetDatabase _widgetDatabase = Get.find<WidgetDatabase>();
+  NukiPreference nukiPreference = Get.find<NukiPreference>();
 
   Future<void> getWidgetResponse(
       String username, String password, String baseUrl) async {
@@ -63,6 +65,7 @@ class WidgetScreenController extends GetxController {
 
   void logoutUser() {
     CommunicationChannel().logoutSignal();
+    nukiPreference.deleteKeys();
     _preference.logoutUser();
   }
 }

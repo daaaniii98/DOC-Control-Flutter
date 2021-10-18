@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_get_x_practice/db/MyPreference.dart';
+import 'package:flutter_get_x_practice/db/NukiPreference.dart';
 import 'package:flutter_get_x_practice/db/WidgetDatabase.dart';
 import 'package:flutter_get_x_practice/helper/LoginHelper.dart';
 import 'package:flutter_get_x_practice/model/LoginRootResponse.dart';
@@ -14,7 +15,6 @@ class LoginFormController extends GetxController {
   //For login
   // RxBool loadingLoginCheck = true.obs;
   // RxBool isLogin = false.obs;
-
   var openConnection = true;
   MyPreference _preference = Get.find<MyPreference>();
   WidgetDatabase _widgetDatabase = Get.find<WidgetDatabase>();

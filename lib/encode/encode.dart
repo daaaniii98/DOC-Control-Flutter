@@ -4,12 +4,12 @@ import 'package:base32/base32.dart';
 import 'package:dart_otp/dart_otp.dart';
 
 class Encoder{
-  static const String _nuki_x_password = 'password87079';
+  static const String _nuki_x_password = 'kooki2';
 
-  void encodeString(){
+  void encodeString({String password = _nuki_x_password}){
     int totpNonce = getTimestamp();
-    print('_nuki_x_password: $_nuki_x_password');
-    var bytes = utf8.encode(_nuki_x_password);
+    print('_nuki_x_password: $password');
+    var bytes = utf8.encode(password);
     var digest = sha256.convert(bytes);
     print('hexString: $digest');
     var hexSubStr = digest.toString().substring(0,20);

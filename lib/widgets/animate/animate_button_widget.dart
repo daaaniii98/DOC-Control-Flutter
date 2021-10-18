@@ -11,7 +11,7 @@ import 'package:flutter_get_x_practice/model/NetworkResponseType.dart';
 import 'package:get/get.dart';
 import 'package:touch_ripple_effect/touch_ripple_effect.dart';
 import 'package:vibration/vibration.dart';
-import '../text_widget.dart';
+import '../bottom_sheet_pin.dart';
 import 'animate_button_status.dart';
 
 class AnimateButtonWidget extends StatefulWidget {
@@ -106,14 +106,30 @@ class _AnimateButtonWidgetState extends State<AnimateButtonWidget> {
             () {
               //
               vibrate();
-              // print('widget.allowedAction.type ${widget.allowedAction.type}');
-              if(widget.allowedAction.type == 'nuki'){
-                NukiPasswordDialog(context,widget.allowedAction).showDialog();
-              }else{
-                _controller.requestActionApi(widget.allowedAction.action!).then(
-                        (value) {
-                      networkResponse(value);
+              print('widget.allowedAction.type ${widget.allowedAction.type}');
+              if (widget.allowedAction.type == 'nuki') {
+                nukiPreference
+                    .getNukiPassword(
+                        widget.allowedAction.nukiBtnNumber.toString())
+                    .then((value) {
+                  if (value.isEmpty) {
+                    NukiPasswordDialog(context, widget.allowedAction)
+                        .showDialog()
+                        .then((value) {
+                      // Get nuki password and call API
+                      callForNukiAction();
                     });
+                  } else {
+                    // Call Nuki API
+                    callForNukiAction();
+                  }
+                });
+              } else {
+                _controller
+                    .requestActionApi(widget.allowedAction.action!)
+                    .then((value) {
+                  networkResponse(value);
+                });
               }
             },
           )
@@ -168,6 +184,28 @@ class _AnimateButtonWidgetState extends State<AnimateButtonWidget> {
         }
       },
     );
+  }
+
+  void callForNukiAction() {
+    if (widget.allowedAction.nukiPinRequired == true) {
+      BottomSheetPin(
+        onDone: (text) {
+          Navigator.pop(context);
+          print('DONE :: $text');
+          _controller.requestNukiActionApi(widget.allowedAction);
+          // _controller.requestNukiActionApi(widget.allowedAction).then(
+          //         (value) {
+          //       networkResponse(value);
+          //     });
+        },
+      ).showBottomSheet();
+    } else {
+      _controller.requestNukiActionApi(widget.allowedAction);
+      // _controller.requestNukiActionApi(widget.allowedAction).then(
+      //         (value) {
+      //       networkResponse(value);
+      //     });
+    }
   }
 }
 

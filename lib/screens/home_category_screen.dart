@@ -18,6 +18,7 @@ class HomeCategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     controller.setWidgetsResponse(Get.arguments);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(MyConstants.APP_NAME),

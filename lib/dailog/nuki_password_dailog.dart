@@ -11,8 +11,8 @@ class NukiPasswordDialog {
 
   NukiPasswordDialog(this.context,this.allowedAction);
 
-  void showDialog() {
-    Get.defaultDialog(
+  Future<void> showDialog() {
+    return Get.defaultDialog(
         title: "Enter Password",
         content: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -31,9 +31,9 @@ class NukiPasswordDialog {
               message: "Please fill out the field!",
               duration: Duration(milliseconds: 1400),
             ));
-            return;
           }
-          nukiPreference.setNukiPassword(allowedAction.nukiBtnNumber, pass)
+          nukiPreference.setNukiPassword(allowedAction.nukiBtnNumber.toString(), _textFieldController.text).then((value) => Navigator.pop(context));
+
         },
         onCancel: () {},
         textConfirm: "Ok",
