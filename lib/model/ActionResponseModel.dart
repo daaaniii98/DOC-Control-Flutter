@@ -7,7 +7,7 @@ class ActionResponseModel {
   ActionResponseModel(this.status, this.message);
 
   factory ActionResponseModel.fromJson(Map<String, dynamic> myJson) {
-    final networkResponse = myJson['status'] == "ok"
+    final networkResponse = myJson['status'].toString().toLowerCase() == "ok"
         ? NetworkResponseType.OK
         : NetworkResponseType.ERROR;
     return ActionResponseModel(networkResponse, myJson['message']);

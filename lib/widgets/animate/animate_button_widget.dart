@@ -11,6 +11,7 @@ import 'package:flutter_get_x_practice/model/NetworkResponseType.dart';
 import 'package:get/get.dart';
 import 'package:touch_ripple_effect/touch_ripple_effect.dart';
 import 'package:vibration/vibration.dart';
+import '../border_container_holder_widget.dart';
 import '../bottom_sheet_pin.dart';
 import 'animate_button_status.dart';
 
@@ -34,7 +35,7 @@ class AnimateButtonWidget extends StatefulWidget {
 class _AnimateButtonWidgetState extends State<AnimateButtonWidget> {
   NukiPreference nukiPreference = Get.find<NukiPreference>();
   late BUTTON_STATE _currentState;
-  late double _widgetheight;
+
   late ActionController _controller;
   Timer? _timer;
 
@@ -70,7 +71,6 @@ class _AnimateButtonWidgetState extends State<AnimateButtonWidget> {
     // _controller = Get.find<ActionController>(tag: widget.allowedAction.action);
     _controller = Get.find<ActionController>(
         tag: "${widget.allowedAction.action}${widget.uniqueActionNumber}");
-    _widgetheight = Theme.of(context).buttonTheme.height + 20;
     super.didChangeDependencies();
   }
 
@@ -80,18 +80,8 @@ class _AnimateButtonWidgetState extends State<AnimateButtonWidget> {
       widget.splashColor = Colors.grey;
     }
     loadingListener();
-    return Container(
-      height: _widgetheight,
-      width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        border: Border.all(
-          width: 0.5,
-          color: Colors.black54,
-        ),
-      ),
-      child: GestureDetector(
+    return BorderContainerHolder(
+      childWidget: GestureDetector(
         child: TouchRippleEffect(
           rippleColor: widget.splashColor,
           child: AnimatedSwitcher(
@@ -192,19 +182,22 @@ class _AnimateButtonWidgetState extends State<AnimateButtonWidget> {
         onDone: (text) {
           Navigator.pop(context);
           print('DONE :: $text');
-          _controller.requestNukiActionApi(widget.allowedAction);
-          // _controller.requestNukiActionApi(widget.allowedAction).then(
-          //         (value) {
-          //       networkResponse(value);
-          //     });
+          // _controller.requestNukiActionApi();
+          _controller
+              .requestNukiActionApi(widget.allowedAction,
+                  pinCode: text.toString())
+              .then((value) {
+            print('Getting_back ${value.status}');
+            networkResponse(value);
+          });
         },
       ).showBottomSheet();
     } else {
-      _controller.requestNukiActionApi(widget.allowedAction);
-      // _controller.requestNukiActionApi(widget.allowedAction).then(
-      //         (value) {
-      //       networkResponse(value);
-      //     });
+      // _controller.requestNukiActionApi(widget.allowedAction);
+      _controller.requestNukiActionApi(widget.allowedAction).then((value) {
+        print('Getting_back ${value.status}');
+        networkResponse(value);
+      });
     }
   }
 }

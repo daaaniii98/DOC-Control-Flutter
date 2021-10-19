@@ -2,6 +2,9 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get/get.dart';
 import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 
+/**
+ * Encrypted shared preferences to store nuki password
+ */
 class NukiPreference extends GetxController {
   EncryptedSharedPreferences _prefs = EncryptedSharedPreferences();
   Future<void> setNukiPassword(String key,String pass) async {
