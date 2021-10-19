@@ -23,6 +23,8 @@ class LoginFormController extends GetxController {
   StreamController<LoginRootResponseModel> loginObserver =
       StreamController<LoginRootResponseModel>.broadcast();
 
+  late String _username, _password, _baseUrl;
+
   @override
   void onInit() {
     // _permissionController.checkPermissions();
@@ -41,6 +43,7 @@ class LoginFormController extends GetxController {
   Future<void> loginUser(String username, String password) async {
     loading.value = true;
     LoginHelper.loginUser(username, password).then((value) {
+      print('REsponse_back ${value.message}');
       loading.value = false;
       if (value.status == NetworkResponseType.OK) {
         _widgetDatabase.deleteRecords();
@@ -51,6 +54,8 @@ class LoginFormController extends GetxController {
             .storeWidgets(value.allowed_actions!)
             .then((value) => print('INSERTTION_SUCCESS'))
             .then((value2) => loginObserver.add(value));
+      }else{
+        loginObserver.add(value);
       }
     });
   }
@@ -65,4 +70,23 @@ class LoginFormController extends GetxController {
   void deleteRecords() {
     _widgetDatabase.deleteRecords();
   }
+
+  get password => _password;
+
+  set password(value) {
+    _password = value;
+  }
+
+  get baseUrl => _baseUrl;
+
+  set baseUrl(value) {
+    _baseUrl = value;
+  }
+
+  String get username => _username;
+
+  set username(String value) {
+    _username = value;
+  }
+
 }

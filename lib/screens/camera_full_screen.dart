@@ -110,7 +110,7 @@ class _ForcePicRefresh extends State<ForcePicRefresh> {
     widget.camPerceptionCount++;
     return SizedBox(
       height: getHeight(),
-      child: InkWell(
+      child: GestureDetector(
         child: widget.camPerceptionCount >= 3
             ? AnimatedSwitcher(duration: Duration(seconds: 2), child: _pic,switchInCurve: Curves.ease,switchOutCurve:  Curves.ease,)
             : Center(child: CircularProgressIndicator.adaptive()),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_get_x_practice/db/NukiPreference.dart';
 import 'package:flutter_get_x_practice/model/ActionResponseModel.dart';
 import 'package:flutter_get_x_practice/model/AllowedAction.dart';
 import 'package:flutter_get_x_practice/model/NetworkResponseType.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:touch_ripple_effect/touch_ripple_effect.dart';
 import 'package:vibration/vibration.dart';
@@ -156,12 +158,23 @@ class _AnimateButtonWidgetState extends State<AnimateButtonWidget> {
         },
       );
     }
-    Get.showSnackbar(
-      GetBar(
-        duration: Duration(seconds: 1),
-        message: value.message,
-      ),
-    );
+
+    if(Platform.isIOS){
+      Fluttertoast.showToast(
+        msg: value.message,
+        textColor: Colors.black,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
+    }else {
+      Get.showSnackbar(
+          GetBar(
+            duration: Duration(seconds: 1),
+            message: value.message,
+          ),
+      );
+    }
+
     Future.delayed(
       Duration(milliseconds: 1400),
       () {

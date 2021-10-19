@@ -22,7 +22,7 @@ class CameraButtonWidget extends StatelessWidget {
             bottom: 0,
             right: 0,
             child:
-            InkWell(
+            GestureDetector(
               onTap: moveToCamScreen,
               child: Container(
                 alignment: Alignment.centerRight,
