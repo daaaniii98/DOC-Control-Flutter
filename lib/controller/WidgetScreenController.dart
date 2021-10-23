@@ -4,7 +4,6 @@ import 'package:flutter_get_x_practice/channel/CommunicationChannel.dart';
 import 'package:flutter_get_x_practice/db/MyPreference.dart';
 import 'package:flutter_get_x_practice/db/NukiPreference.dart';
 import 'package:flutter_get_x_practice/db/WidgetDatabase.dart';
-import 'package:flutter_get_x_practice/helper/LoginHelper.dart';
 import 'package:flutter_get_x_practice/helper/ParmsHelper.dart';
 import 'package:flutter_get_x_practice/model/AllowedAction.dart';
 import 'package:flutter_get_x_practice/model/Config.dart';
@@ -38,7 +37,7 @@ class WidgetScreenController extends GetxController {
     dataObserver.value = LoginRootResponseModel(
         allowed_actions: allowedActions,
         message: "Success",
-        status: NetworkResponseType.OK,
+        status: GeneralResponseType.OK,
         config: Config(10));
 
     // LoginHelper.loginUser(username, password).then((value) {
@@ -65,7 +64,9 @@ class WidgetScreenController extends GetxController {
 
   void logoutUser() {
     CommunicationChannel().logoutSignal();
+    _widgetDatabase.deleteRecords();
     nukiPreference.deleteKeys();
     _preference.logoutUser();
+    dataObserver.value = LoginRootResponseModel();
   }
 }

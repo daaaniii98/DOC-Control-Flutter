@@ -1,4 +1,4 @@
-enum NetworkResponseType{
+enum GeneralResponseType{
   OK,
   ERROR
 }

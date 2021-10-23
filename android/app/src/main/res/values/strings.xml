@@ -7,4 +7,10 @@
     <string name="name_your_widget">Name your widget</string>
     <string name="select_widget">Select Widget</string>
     <string name="name">Name</string>
+    <string name="secret_key_name">biometric_encryption_key</string>
+
+    <string name="prompt_info_title">DOCKontrol</string>
+    <string name="prompt_info_subtitle">Please login to get access</string>
+    <string name="prompt_info_description">DOCKontrol wants to use biometric authentication</string>
+    <string name="prompt_info_use_app_password">Use password</string>
 </resources>

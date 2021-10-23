@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
     // });
     loginController.loginObserver.stream.listen((event) {
       print('LOGIN_EMIT___ ${event.status}');
-      if (event.status == NetworkResponseType.OK) {
+      if (event.status == GeneralResponseType.OK) {
         loginController.saveUserDetails(loginController.username, loginController.password, loginController.baseUrl);
         _showSnackbar('Login Successful!');
         // event.allowed_actions!.forEach((element) {element.printObject(); });

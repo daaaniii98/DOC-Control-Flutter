@@ -35,7 +35,6 @@ public class SelectWidgetActivity extends Activity {
     //    DialogWidgetChooser dialogWidgetChooser;
     ArrayList<String> actions = new ArrayList<>();
     List<ActionModel> myActions;
-    AlertDialog dialog;
     Button btnSelect;
 
     int selectedPosition = -1;

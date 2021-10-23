@@ -1,18 +1,23 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_get_x_practice/channel/CommunicationChannel.dart';
 import 'package:flutter_get_x_practice/db/MyPreference.dart';
 import 'package:flutter_get_x_practice/db/NukiPreference.dart';
 import 'package:flutter_get_x_practice/encode/encode.dart';
 import 'package:flutter_get_x_practice/helper/ParmsHelper.dart';
 import 'package:flutter_get_x_practice/model/ActionResponseModel.dart';
 import 'package:flutter_get_x_practice/model/AllowedAction.dart';
+import 'package:flutter_get_x_practice/model/CryptoResponseModel.dart';
 import 'package:flutter_get_x_practice/model/NetworkResponseType.dart';
 import 'package:flutter_get_x_practice/model/NukiActionModel.dart';
+import 'package:flutter_get_x_practice/model/nativeResponseModel.dart';
 import 'package:flutter_get_x_practice/utils/UtilMethods.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class ActionController extends GetxController {
+  final channel = CommunicationChannel();
+
   RxBool loading = false.obs;
   var openConnection = true;
   MyPreference _preference = Get.find<MyPreference>();
@@ -20,7 +25,7 @@ class ActionController extends GetxController {
   Encoder _encoder = Get.find<Encoder>();
 
   Future<ActionResponseModel> requestActionApi(String action) async {
-    print('Requet_normal_action');
+    print('Request_normal_action');
     loading.value = true;
     final user = await _preference.getUser();
     final queryParameters = {
@@ -49,7 +54,7 @@ class ActionController extends GetxController {
       return ActionResponseModel.fromJson(data);
     } catch (error) {
       return new ActionResponseModel(
-          NetworkResponseType.ERROR, error.toString());
+          GeneralResponseType.ERROR, error.toString());
     }
   }
 
@@ -61,7 +66,7 @@ class ActionController extends GetxController {
         if (myPass.isEmpty) {
           // password not set error response
           return new ActionResponseModel(
-              NetworkResponseType.ERROR, 'Password Required!');
+              GeneralResponseType.ERROR, 'Password Required!');
         } else {
           // call API
           final user = await _preference.getUser();
@@ -99,10 +104,36 @@ class ActionController extends GetxController {
             return resp;
           } catch (error) {
             return new ActionResponseModel(
-                NetworkResponseType.ERROR, error.toString());
+                GeneralResponseType.ERROR, error.toString());
           }
         }
       },
     );
+  }
+
+  Future<GeneralResponseType> savePin(String allowActionId, String pin) async {
+    return channel.encryptSignal(pin,allowActionId).then((value) {
+      if(value.responseType == GeneralResponseType.OK){
+        print("Response_was_ok ${value.responseValue.ciphertext} ,,,, ${value.responseValue.initializationVector}");
+        // Save Nuki Encrypted Pin in database
+        nukiPreference.setNukiPin(allowActionId, value.responseValue).then((value) {
+          print('PIN_STORED');
+        });
+      }else{
+        print("Response_was_LUNNNN");
+      }
+      return value.responseType;
+    });
+  }
+
+  Future<NativeResponseModel> getPin(String allowActionId, CryptoResponseModel pin) async {
+    return channel.decryptSignal(pin,allowActionId).then((value) {
+      if(value.responseType == GeneralResponseType.OK){
+        print("Response_was_ok");
+      }else{
+        print("Response_was_LUNNNN");
+      }
+      return value;
+    });
   }
 }

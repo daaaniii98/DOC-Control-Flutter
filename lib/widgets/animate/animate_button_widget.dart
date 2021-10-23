@@ -11,6 +11,7 @@ import 'package:flutter_get_x_practice/model/AllowedAction.dart';
 import 'package:flutter_get_x_practice/model/NetworkResponseType.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:touch_ripple_effect/touch_ripple_effect.dart';
 import 'package:vibration/vibration.dart';
 import '../border_container_holder_widget.dart';
@@ -152,28 +153,13 @@ class _AnimateButtonWidgetState extends State<AnimateButtonWidget> {
     if (mounted) {
       setState(
         () {
-          _currentState = value.status == NetworkResponseType.OK
+          _currentState = value.status == GeneralResponseType.OK
               ? BUTTON_STATE.SUCCESS
               : BUTTON_STATE.ERROR;
         },
       );
     }
-
-    if(Platform.isIOS){
-      Fluttertoast.showToast(
-        msg: value.message,
-        textColor: Colors.black,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-      );
-    }else {
-      Get.showSnackbar(
-          GetBar(
-            duration: Duration(seconds: 1),
-            message: value.message,
-          ),
-      );
-    }
+    _showSnackBar(value.message);
 
     Future.delayed(
       Duration(milliseconds: 1400),
@@ -190,27 +176,93 @@ class _AnimateButtonWidgetState extends State<AnimateButtonWidget> {
   }
 
   void callForNukiAction() {
+    // TODO Save PIN USING ENCRYPTION
+
     if (widget.allowedAction.nukiPinRequired == true) {
-      BottomSheetPin(
-        onDone: (text) {
-          Navigator.pop(context);
-          print('DONE :: $text');
-          // _controller.requestNukiActionApi();
+      nukiPreference.getNukiPin(widget.allowedAction.id).then((nukiPin) {
+        if (nukiPin.ciphertext!.isEmpty) {
+          //Ask for nuki PIN
+          BottomSheetPin(
+            onDone: (btmSheetResponse) {
+              if (btmSheetResponse.fingerprintCheck) {
+                // Use fingerprint is checked
+                _controller
+                    .savePin(
+                        widget.allowedAction.id, btmSheetResponse.fieldText)
+                    .then((responseType) {
+                  if (responseType == GeneralResponseType.OK) {
+                    Navigator.pop(context);
+                    print('DONE :: $btmSheetResponse');
+                    // _controller.requestNukiActionApi();
+                    _controller
+                        .requestNukiActionApi(widget.allowedAction,
+                            pinCode: btmSheetResponse.fieldText)
+                        .then((value) {
+                      print('Getting_back ${value.status}');
+                      networkResponse(value);
+                    });
+                  } else {
+                    // print error
+                    _showSnackBar("Authentication failed!");
+                  }
+                });
+              } else {
+                // Dont use Fingerprint authentication
+                Navigator.pop(context);
+                _controller
+                    .requestNukiActionApi(widget.allowedAction,
+                        pinCode: btmSheetResponse.fieldText)
+                    .then(
+                  (value) {
+                    networkResponse(value);
+                  },
+                );
+              }
+            },
+          ).showBottomSheet();
+        } else {
+          // Pass Nuki-encrypted Pin to native and validate
           _controller
-              .requestNukiActionApi(widget.allowedAction,
-                  pinCode: text.toString())
-              .then((value) {
-            print('Getting_back ${value.status}');
-            networkResponse(value);
+              .getPin(widget.allowedAction.id, nukiPin)
+              .then((responseType) {
+            if (responseType.responseType == GeneralResponseType.OK) {
+              // print('WE_GET_DECRYPT_TEXT ${responseType.responseValue.ciphertext}');
+              _controller
+                  .requestNukiActionApi(widget.allowedAction,
+                      pinCode: responseType.responseValue.ciphertext)
+                  .then((value) {
+                networkResponse(value);
+              });
+            } else {
+              // print error
+              _showSnackBar("Authentication failed!");
+            }
           });
-        },
-      ).showBottomSheet();
+        }
+      });
     } else {
-      // _controller.requestNukiActionApi(widget.allowedAction);
       _controller.requestNukiActionApi(widget.allowedAction).then((value) {
         print('Getting_back ${value.status}');
         networkResponse(value);
       });
+    }
+  }
+
+  void _showSnackBar(String msg) {
+    if (Platform.isIOS) {
+      Fluttertoast.showToast(
+        msg: msg,
+        textColor: Colors.black,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
+    } else {
+      Get.showSnackbar(
+        GetBar(
+          duration: Duration(seconds: 1),
+          message: msg,
+        ),
+      );
     }
   }
 }

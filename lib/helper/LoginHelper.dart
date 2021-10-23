@@ -28,7 +28,7 @@ class LoginHelper {
     } catch (error) {
       return new LoginRootResponseModel(
           message: error.toString(),
-          status: NetworkResponseType.ERROR,
+          status: GeneralResponseType.ERROR,
           allowed_actions: null,
           config: null);
       // throw error;

@@ -2,15 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'checkbox_widget.dart';
 import 'keyboard/custom_keyboard.dart';
 
 class BottomSheetPin {
   TextEditingController _controller = TextEditingController();
-  final ValueSetter<String> onDone;
+  final ValueSetter<BottomSheetResponse> onDone;
+  var checkFingerprint = false;
 
   BottomSheetPin({required this.onDone});
 
   void showBottomSheet() {
+    var checkBoxWidget = buildRowFive();
     Get.bottomSheet(
       Column(
         mainAxisSize: MainAxisSize.min,
@@ -18,12 +21,11 @@ class BottomSheetPin {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
             width: double.infinity,
-            margin: EdgeInsets.only(top: 15,right: 20,left: 20,bottom: 20),
+            margin: EdgeInsets.only(top: 15, right: 20, left: 20, bottom: 20),
             decoration: BoxDecoration(
               border: Border.all(
                 width: 0.5,
                 color: Colors.black54,
-
               ),
             ),
             child: TextField(
@@ -48,10 +50,12 @@ class BottomSheetPin {
                 _backspace();
               },
               onDone: () {
-                onDone.call(_controller.text);
+                onDone.call(
+                    BottomSheetResponse(_controller.text, (checkBoxWidget as CheckboxWidget).checkValue));
               },
             ),
-          )
+          ),
+          checkBoxWidget
         ],
       ),
       elevation: 20.0,
@@ -122,4 +126,17 @@ class BottomSheetPin {
   bool _isUtf16Surrogate(int value) {
     return value & 0xF800 == 0xD800;
   }
+
+  Widget buildRowFive() {
+    return CheckboxWidget(
+      checkValue: checkFingerprint,
+    );
+  }
+}
+
+class BottomSheetResponse {
+  String fieldText;
+  bool fingerprintCheck;
+
+  BottomSheetResponse(this.fieldText, this.fingerprintCheck);
 }

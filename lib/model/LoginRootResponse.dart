@@ -6,13 +6,13 @@ import 'Config.dart';
 import 'NetworkResponseType.dart';
 
 class LoginRootResponseModel {
-  final NetworkResponseType status;
+  final GeneralResponseType status;
   final List<AllowedAction>? allowed_actions;
   final Config? config;
   final String? message;
 
   LoginRootResponseModel(
-      {this.status = NetworkResponseType.ERROR,
+      {this.status = GeneralResponseType.ERROR,
       this.allowed_actions,
       this.config,
       this.message});
@@ -20,9 +20,9 @@ class LoginRootResponseModel {
   factory LoginRootResponseModel.fromJson(Map<String, dynamic> myJson) {
     // print('loginController ${myJson['allowed_actions']}' );
     final networkResponse = myJson['status'] == "ok"
-        ? NetworkResponseType.OK
-        : NetworkResponseType.ERROR;
-    if (networkResponse == NetworkResponseType.OK) {
+        ? GeneralResponseType.OK
+        : GeneralResponseType.ERROR;
+    if (networkResponse == GeneralResponseType.OK) {
       List list = myJson['allowed_actions'];
       List<AllowedAction> allowedList = new List.empty(growable: true);
       // print('Add');

@@ -45,7 +45,7 @@ class LoginFormController extends GetxController {
     LoginHelper.loginUser(username, password).then((value) {
       print('REsponse_back ${value.message}');
       loading.value = false;
-      if (value.status == NetworkResponseType.OK) {
+      if (value.status == GeneralResponseType.OK) {
         _widgetDatabase.deleteRecords();
         // print('Inserting Data in database________');
         print('PRINT_BEFORE_INSERT');

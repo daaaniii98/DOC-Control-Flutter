@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../checkbox_widget.dart';
 import 'keyboard_key.dart';
 
 class CustomKeyboard extends StatelessWidget {
@@ -128,4 +129,5 @@ class CustomKeyboard extends StatelessWidget {
       ),
     );
   }
+
 }
