@@ -65,6 +65,8 @@ public class SelectWidgetActivity extends Activity {
         dropDownView.setDropDownListItem(actions);
         dropDownView.setOnSelectionListener((view, position) -> {
             selectedPosition = position;
+            ActionModel actionModel = myActions.get(selectedPosition);
+            edName.setText(actionModel.getName());
         });
         btnSelect.setOnClickListener(v -> {
             String name = edName.getText().toString();

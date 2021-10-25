@@ -35,7 +35,6 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         vectorDrawables.useSupportLibrary = true
-
         multiDexEnabled true
     }
 
